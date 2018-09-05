@@ -1,0 +1,34 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.almightee"
+    },
+    "jhipsterVersion": "5.3.0",
+    "applicationType": "monolith",
+    "baseName": "Almightee",
+    "packageName": "com.almightee",
+    "packageFolder": "com/almightee",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "elasticsearch",
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": true,
+    "jwtSecretKey": "ZWRmMWNkZmIzYTE0YWY1OGRlNzY2NWMxYjE1NGUxZWNhMzA1M2M4MjY0MjM1ZWE3N2ExNDc1OTA3NGQ2NjJmMWMxZDJjOTA1ODRjN2ZmMDNkNjExMzliMmVjYzhiZTA4ZDRjMTljZjM5ZDA1Y2NjZDg3ZTIxYmFmYjA1NjJhNWY=",
+    "clientFramework": "angularX",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "testFrameworks": [
+      "gatling"
+    ],
+    "jhiPrefix": "jhi",
+    "enableTranslation": false
+  }
+}
