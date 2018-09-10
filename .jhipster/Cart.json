@@ -1,0 +1,28 @@
+{
+    "name": "Cart",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "lineItems",
+            "otherEntityName": "lineItem",
+            "otherEntityRelationshipName": "cart"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "customer",
+            "otherEntityName": "customer",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "currentCart"
+        }
+    ],
+    "changelogDate": "20180910141947",
+    "entityTableName": "cart",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

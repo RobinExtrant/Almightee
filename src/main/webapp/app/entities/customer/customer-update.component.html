@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-customer-heading">Create or edit a Customer</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!customer.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="customer.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_username">Username</label>
+                    <input type="text" class="form-control" name="username" id="field_username"
+                        [(ngModel)]="customer.username" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_mail">Mail</label>
+                    <input type="text" class="form-control" name="mail" id="field_mail"
+                        [(ngModel)]="customer.mail" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_password">Password</label>
+                    <input type="text" class="form-control" name="password" id="field_password"
+                        [(ngModel)]="customer.password" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_currentCart">Current Cart</label>
+                    <select class="form-control" id="field_currentCart" name="currentCart" [(ngModel)]="customer.currentCart">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="cartOption.id === customer.currentCart?.id ? customer.currentCart : cartOption" *ngFor="let cartOption of currentcarts; trackBy: trackCartById">{{cartOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

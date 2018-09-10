@@ -1,0 +1,32 @@
+{
+    "name": "LineItem",
+    "fields": [
+        {
+            "fieldName": "quantity",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "product",
+            "otherEntityName": "product",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "cart",
+            "otherEntityName": "cart",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180910141946",
+    "entityTableName": "line_item",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -41,6 +41,15 @@ public class CacheConfiguration {
             cm.createCache(com.almightee.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.almightee.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.almightee.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.almightee.domain.Category.class.getName(), jcacheConfiguration);
+            cm.createCache(com.almightee.domain.Product.class.getName(), jcacheConfiguration);
+            cm.createCache(com.almightee.domain.Pattern.class.getName(), jcacheConfiguration);
+            cm.createCache(com.almightee.domain.LineItem.class.getName(), jcacheConfiguration);
+            cm.createCache(com.almightee.domain.Cart.class.getName(), jcacheConfiguration);
+            cm.createCache(com.almightee.domain.Cart.class.getName() + ".lineItems", jcacheConfiguration);
+            cm.createCache(com.almightee.domain.Command.class.getName(), jcacheConfiguration);
+            cm.createCache(com.almightee.domain.Customer.class.getName(), jcacheConfiguration);
+            cm.createCache(com.almightee.domain.Customer.class.getName() + ".commands", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
