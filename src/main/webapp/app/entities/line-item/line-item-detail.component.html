@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="lineItem">
+            <h2><span>Line Item</span> {{lineItem.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Quantity</span></dt>
+                <dd>
+                    <span>{{lineItem.quantity}}</span>
+                </dd>
+                <dt><span>Product</span></dt>
+                <dd>
+                    <div *ngIf="lineItem.product">
+                        <a [routerLink]="['/product', lineItem.product?.id, 'view']">{{lineItem.product?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Cart</span></dt>
+                <dd>
+                    <div *ngIf="lineItem.cart">
+                        <a [routerLink]="['/cart', lineItem.cart?.id, 'view']">{{lineItem.cart?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/line-item', lineItem.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

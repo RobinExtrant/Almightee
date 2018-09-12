@@ -1,0 +1,86 @@
+entity Category {
+	id Long,
+    name String,
+    price Long
+}
+
+entity Product {
+	id Long,
+    name String,
+    price Long,
+    color Color,
+    size Size
+}
+
+enum Color {
+    WHITE, BLACK, BLUE, YELLOW, GREEN, RED
+}
+
+enum Size {
+    S, M, L, XL, XXL
+}
+
+entity Pattern {
+	id Long,
+    name String,
+    author String,
+    imageURL String,
+    price Long,
+    theme Theme
+}
+
+enum Theme {
+	NATURE, ANIME, DESIGN, LOVE, ANIMAL
+}
+
+entity LineItem {
+	quantity Integer
+}
+
+entity Cart {
+}
+
+entity Command {
+	date Instant,
+    status CommandStatus
+}
+
+enum CommandStatus {
+	IN_PREPARATION, SHIPPED, DELIVERED, CANCELED
+}
+
+entity Customer {
+	username String,
+    mail String,
+    password String
+}
+
+relationship ManyToOne {
+	Product{category} to Category,
+    Product{pattern} to Pattern,
+    LineItem{product} to Product
+}
+
+relationship OneToOne {
+	Command{cart} to Cart,
+    Customer{currentCart} to Cart{customer}
+}
+
+relationship OneToMany {
+    Customer{commands} to Command,
+    Cart{lineItems} to LineItem
+}
+
+
+
+
+// Set pagination options
+// paginate JobHistory, Employee with infinite-scroll
+paginate Pattern with pagination
+
+//dto * with mapstruct
+
+// Set service options to all except few
+//service all with serviceImpl except Employee, Job
+// Set an angular suffix
+//angularSuffix * with mySuffix
