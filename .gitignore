@@ -87,8 +87,6 @@ out/
 *.war
 *.ear
 *.db
-package.json
-package-lock.json
 
 ######################
 # Windows
