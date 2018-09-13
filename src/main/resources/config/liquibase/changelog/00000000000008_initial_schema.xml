@@ -14,33 +14,15 @@
         JHipster core tables.
         The initial schema has the '00000000000001' id, so that it is over-written if we re-generate it.
     -->
-    <changeSet id="00000000000001" author="jhipster">
+    <changeSet id="00000000000008" author="jhipster">
         <!--
             Almightee Tables
         -->
 
-        <createTable tableName="pattern">
-            <column name="id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="author" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="url" type="varchar(100)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="id" tableName="pattern"/>
-
         <loadData encoding="UTF-8"
                   file="config/liquibase/patterns.csv"
                   separator=";"
-                  tableName="pattern">
-        </loadData>
+                  tableName="pattern"/>
 
     </changeSet>
 </databaseChangeLog>
