@@ -17,6 +17,7 @@ import { AlmighteeAppRoutingModule } from './app-routing.module';
 import { AlmighteeHomeModule } from './home/home.module';
 import { AlmighteeAccountModule } from './account/account.module';
 import { AlmighteeEntityModule } from './entities/entity.module';
+import { CatalogModule } from './catalog/catalog.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
@@ -30,7 +31,8 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         AlmighteeCoreModule,
         AlmighteeHomeModule,
         AlmighteeAccountModule,
-        AlmighteeEntityModule
+        AlmighteeEntityModule,
+        CatalogModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
