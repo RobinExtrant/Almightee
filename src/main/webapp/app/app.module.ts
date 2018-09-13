@@ -13,13 +13,18 @@ import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.inter
 import { NotificationInterceptor } from './blocks/interceptor/notification.interceptor';
 import { AlmighteeSharedModule } from 'app/shared';
 import { AlmighteeCoreModule } from 'app/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { AlmighteeAppRoutingModule } from './app-routing.module';
 import { AlmighteeHomeModule } from './home/home.module';
 import { AlmighteeAccountModule } from './account/account.module';
 import { AlmighteeEntityModule } from './entities/entity.module';
+import { CatalogModule } from './catalog/catalog.module';
+import { MatGridListModule } from '@angular/material/grid-list';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
+import { CatalogComponent } from './catalog/catalog.component';
 
 @NgModule({
     imports: [
@@ -28,12 +33,16 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
         AlmighteeSharedModule,
         AlmighteeCoreModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
         AlmighteeHomeModule,
         AlmighteeAccountModule,
-        AlmighteeEntityModule
+        CatalogModule,
+        AlmighteeEntityModule,
+        MatGridListModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
-    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
+    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent, CatalogComponent],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,

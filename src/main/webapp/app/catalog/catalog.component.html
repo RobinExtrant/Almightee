@@ -1,0 +1,12 @@
+<p>
+  catalog works!
+</p>
+<mat-grid-list cols="3" rowHeight="100px" *ngIf="patterns && patterns.length > 0; else nopattern">
+  <mat-grid-tile *ngFor="let pattern of patterns">
+      <p> {{pattern.name}} </p>
+      <p> {{pattern.author}} </p>
+      <p> {{pattern.imageUrl}} </p>
+      <p> {{pattern.price}} </p>
+  </mat-grid-tile>
+</mat-grid-list>
+<ng-template #nopattern>Il n'y a aucun motif !</ng-template>
