@@ -1,22 +1,15 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-<p>
-  catalog works!
-</p>
-<mat-grid-list cols="3" rowHeight="170px" *ngIf="patterns && patterns.length > 0; else nopattern">
+<mat-grid-list cols="3" rowHeight="180px" *ngIf="patterns && patterns.length > 0; else nopattern">
   <mat-grid-tile *ngFor="let pattern of patterns">
-    <!--  <p> {{pattern.name}} </p>
-      <p> {{pattern.author}} </p>
-      <p> {{pattern.imageUrl}} </p>
-      <p> {{pattern.price}} </p>!-->
-    <div class="productbox" align="center">
-      <img src="https://www.decathlon.fr/media/835/8355739/big_a5d87ec826ce47c589989003c0ea93f2.jpg" class="img-responsive" width="30%">
+    <div class="productbox" align="center" ng-app>
+      <img src="{{pattern.imageURL}}" class="img-responsive" width="30%">
       <div class="productname">{{pattern.name}}   -   {{pattern.author}}</div>
-      <div class="productprice">Prix :  {{pattern.price}}€</div>
+      <div class="productprice">Prix :  {{pattern.price}}€ <input type="button" (click)="addToCart(pattern)" value="Choisir"></div>
     </div>
   </mat-grid-tile>
 </mat-grid-list>
+<div align="center">
+  <input *ngIf="currentPage > totalPages" style="display: inline-block" type="button" (click)="previous()" value="<">
+  <p style="display: inline-block">{{currentPage}}</p>
+  <input *ngIf="currentPage < totalPages" style="display: inline-block" type="button" (click)="next()" value=">">
+</div>
 <ng-template #nopattern>Il n'y a aucun motif !</ng-template>
