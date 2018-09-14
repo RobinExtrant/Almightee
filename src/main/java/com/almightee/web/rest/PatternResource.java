@@ -1,5 +1,6 @@
 package com.almightee.web.rest;
 
+import com.almightee.service.PatternService;
 import com.codahale.metrics.annotation.Timed;
 import com.almightee.domain.Pattern;
 import com.almightee.repository.PatternRepository;
@@ -10,6 +11,7 @@ import com.almightee.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -38,13 +40,10 @@ public class PatternResource {
 
     private static final String ENTITY_NAME = "pattern";
 
-    private final PatternRepository patternRepository;
+    @Autowired
+    private PatternService patternService;
 
-    private final PatternSearchRepository patternSearchRepository;
-
-    public PatternResource(PatternRepository patternRepository, PatternSearchRepository patternSearchRepository) {
-        this.patternRepository = patternRepository;
-        this.patternSearchRepository = patternSearchRepository;
+    public PatternResource() {
     }
 
     /**
@@ -61,8 +60,7 @@ public class PatternResource {
         if (pattern.getId() != null) {
             throw new BadRequestAlertException("A new pattern cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Pattern result = patternRepository.save(pattern);
-        patternSearchRepository.save(result);
+        Pattern result = patternService.savePattern(pattern);
         return ResponseEntity.created(new URI("/api/patterns/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -84,8 +82,7 @@ public class PatternResource {
         if (pattern.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Pattern result = patternRepository.save(pattern);
-        patternSearchRepository.save(result);
+        Pattern result = patternService.savePattern(pattern);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, pattern.getId().toString()))
             .body(result);
@@ -101,7 +98,7 @@ public class PatternResource {
     @Timed
     public ResponseEntity<List<Pattern>> getAllPatterns(Pageable pageable) {
         log.debug("REST request to get a page of Patterns");
-        Page<Pattern> page = patternRepository.findAll(pageable);
+        Page<Pattern> page = patternService.retrieveAllPatterns(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/patterns");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -116,7 +113,7 @@ public class PatternResource {
     @Timed
     public ResponseEntity<Pattern> getPattern(@PathVariable Long id) {
         log.debug("REST request to get Pattern : {}", id);
-        Optional<Pattern> pattern = patternRepository.findById(id);
+        Optional<Pattern> pattern = patternService.getPattern(id);
         return ResponseUtil.wrapOrNotFound(pattern);
     }
 
@@ -130,9 +127,7 @@ public class PatternResource {
     @Timed
     public ResponseEntity<Void> deletePattern(@PathVariable Long id) {
         log.debug("REST request to delete Pattern : {}", id);
-
-        patternRepository.deleteById(id);
-        patternSearchRepository.deleteById(id);
+        patternService.deletePattern(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
@@ -148,7 +143,7 @@ public class PatternResource {
     @Timed
     public ResponseEntity<List<Pattern>> searchPatterns(@RequestParam String query, Pageable pageable) {
         log.debug("REST request to search for a page of Patterns for query {}", query);
-        Page<Pattern> page = patternSearchRepository.search(queryStringQuery(query), pageable);
+        Page<Pattern> page = patternService.retrievePatternsByQuery(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/patterns");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
