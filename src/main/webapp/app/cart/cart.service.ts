@@ -13,16 +13,19 @@ export class CartService {
     }
 
     all(): CommandItem[] {
+        console.log('nombre : ' + this.cart.carts.length);
         return this.cart.carts;
     }
 
     add(commandItem: CommandItem): boolean {
-        let commandItemIfExists: CommandItem = this.cart.carts.find(
-            x => x.color == commandItem.color && x.size == commandItem.size && x.pattern == commandItem.pattern
+        let commandItemIfExists: CommandItem;
+        commandItemIfExists = this.cart.carts.find(
+            x => x.color === commandItem.color && x.size === commandItem.size && x.pattern === commandItem.pattern
         );
         if (commandItemIfExists) {
-            commandItemIfExists.setQuantity(commandItemIfExists.quantity + commandItem.quantity);
+            /*commandItemIfExists.setQuantity(commandItemIfExists.quantity + commandItem.quantity);*/
         } else {
+            console.log('Motif push');
             this.cart.carts.push(commandItem);
         }
 
@@ -30,7 +33,7 @@ export class CartService {
     }
 
     remove(commandItemIndex: number): boolean {
-        return this.cart.carts.splice(commandItemIndex, 1).length == 1;
+        return this.cart.carts.splice(commandItemIndex, 1).length === 1;
     }
 
     order() {}

@@ -67,17 +67,18 @@ export class CatalogComponent implements OnInit {
         this.patterns = data;
     }
 
-    addToCart(pattern: Pattern) {
+    addToCart(patternToAdd: Pattern) {
         let commandItem: CommandItem;
         commandItem = {
             id: null,
             quantity: 1,
-            price: pattern.price,
+            price: patternToAdd.price,
             color: Color.BLUE,
             size: Size.XXL,
-            pattern: pattern,
+            pattern: patternToAdd,
             command: null
         };
         this.cartService.add(commandItem);
+        console.log('Motif ajouté');
     }
 }
