@@ -2,6 +2,7 @@ package com.almightee.web.rest;
 
 import com.almightee.service.PatternService;
 import com.almightee.service.StorageService;
+import com.almightee.service.util.PictureBO;
 import com.codahale.metrics.annotation.Timed;
 import com.almightee.domain.Pattern;
 import com.almightee.repository.PatternRepository;
@@ -19,9 +20,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -122,14 +128,27 @@ public class PatternResource {
         return ResponseUtil.wrapOrNotFound(pattern);
     }
 
-    @GetMapping("/patterns/{username}/{filename:.+}")
-    @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String username, @PathVariable String filename) {
-
-        Resource file = storageService.load(username, filename);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-            "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    @GetMapping("/picture/{author}")
+    public void getImage(@PathVariable String author, @RequestParam("idPicture") final String idPicture, final HttpServletResponse response) {
+        final PictureBO pic = storageService.load(author, idPicture);
+        if (pic.getContent() == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        } else {
+            final byte[] file = pic.getContent();
+            response.setContentType("application/octet-stream");
+            response.setHeader("Content-Disposition","attachment;filename=\"" + pic.getName() + "\"");
+            response.setContentLength(file.length);
+            final InputStream inputStream = new ByteArrayInputStream(file);
+            try {
+                FileCopyUtils.copy(inputStream, response.getOutputStream());
+            } catch (final IOException e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                log.error(e.getMessage(), e);
+            }
+        }
     }
+
+
 
     /**
      * DELETE  /patterns/:id : delete the "id" pattern.

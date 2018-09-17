@@ -1,6 +1,8 @@
 package com.almightee.service.impl;
 
 import com.almightee.service.StorageService;
+import com.almightee.service.util.PictureBO;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -35,17 +37,18 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public Resource load(String username, String filename) {
+    public PictureBO load(String username, String filename) {
         try {
-            Path file = rootPath.resolve(filename);
-            Resource resource = new UrlResource(file.toUri());
-            if (resource.exists() || resource.isReadable()) {
-                return resource;
-            }
-            else throw new RuntimeException("Could not read file: " + filename +" (file doesn't exist or isn't readable).");
+            Path file = rootPath.resolve(username + "/" + filename);
+            PictureBO picture = new PictureBO(filename);
+            picture.setContent(IOUtils.toByteArray(file.toUri()));
+            return picture;
         }
         catch (MalformedURLException e) {
             throw new RuntimeException("Could not read file: " + filename, e);
+        }
+        catch (IOException e) {
+            throw new RuntimeException("Unable to load the file: " + filename, e);
         }
     }
 
