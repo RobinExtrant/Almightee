@@ -12,16 +12,23 @@ export class CartService {
         this.cart = { carts: [] };
     }
 
-    add(commandItem: CommandItem) {
-        let commandItemIfExists = this.cart.carts.find();
+    add(commandItem: CommandItem): boolean {
+        let commandItemIfExists: CommandItem = this.cart.carts.find(
+            x => x.color == commandItem.color && x.size == commandItem.size && x.pattern == commandItem.pattern
+        );
+
         if (commandItemIfExists) {
-            this.cart.carts.some;
+            commandItemIfExists.setQuantity(commandItemIfExists.quantity + commandItem.quantity);
         } else {
             this.cart.carts.push(commandItem);
         }
+
+        return true;
     }
 
-    remove(commandItemId: number) {}
+    remove(commandItemIndex: number): boolean {
+        return this.cart.carts.splice(commandItemIndex, 1).length == 1;
+    }
 
     order() {}
 }

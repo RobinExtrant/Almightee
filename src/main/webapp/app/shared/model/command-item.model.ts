@@ -26,6 +26,8 @@ export interface ICommandItem {
     size?: Size;
     pattern?: IPattern;
     command?: ICommand;
+
+    setQuantity(number);
 }
 
 export class CommandItem implements ICommandItem {
@@ -38,4 +40,9 @@ export class CommandItem implements ICommandItem {
         public pattern?: IPattern,
         public command?: ICommand
     ) {}
+
+    setQuantity(newQuantity) {
+        this.quantity = newQuantity;
+        this.price = this.quantity * this.price;
+    }
 }
