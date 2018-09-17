@@ -3,6 +3,7 @@ package com.almightee.service.impl;
 import com.almightee.domain.Command;
 import com.almightee.domain.Customer;
 import com.almightee.domain.Pattern;
+import com.almightee.domain.enumeration.CommandStatus;
 import com.almightee.repository.CommandRepository;
 import com.almightee.repository.search.CommandSearchRepository;
 import com.almightee.service.CommandService;
@@ -30,30 +31,29 @@ public class CommandServiceImpl implements CommandService {
     private CommandSearchRepository commandSearchRepository;
 
     @Override
-    public List<Command> retrieveAllCommandsByUser(Customer customer) {
-        return commandRepository.findAllByCustomer(customer);
-    }
-
-    @Override
-    public Optional<Command> getCommand(Long id) {
-        return commandRepository.findById(id);
+    public Optional<Command> getCommand(Long idCustomer, Long idCommand) {
+        return commandRepository.findByCustomerIdAndId(idCustomer, idCommand);
     }
 
     @Override
     public Command saveCommand(Command command) {
+        command.setStatus(CommandStatus.IN_PREPARATION);
         Command result = commandRepository.save(command);
         commandSearchRepository.save(result);
         return result;
     }
 
     @Override
-    public void deleteCommand(Long id) {
-        commandRepository.deleteById(id);
-        commandSearchRepository.deleteById(id);
+    public void deleteCommand(Long idCustomer, Long idCommand) {
+        Optional<Command> command = commandRepository.findByCustomerIdAndId(idCustomer, idCommand);
+        if(command.isPresent()) {
+            commandRepository.delete(command.get());
+            commandSearchRepository.deleteById(idCommand);
+        }
     }
 
     @Override
-    public List<Command> retrieveAllCommands() {
-        return commandRepository.findAll();
+    public List<Command> retrieveAllCommands(Long idCustomer) {
+        return commandRepository.findByCustomer(idCustomer);
     }
 }
