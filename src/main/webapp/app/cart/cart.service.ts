@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
-import { ICommand } from './../shared/model/command.model';
-import { ICommandItem, CommandItem } from './../shared/model/command-item.model';
+import { Command } from './../shared/model/command.model';
+import { CommandItem } from './../shared/model/command-item.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CartService {
-    private cart: ICommand;
+    private cart: Command;
 
     constructor() {
         this.cart = { carts: [] };
+    }
+
+    all(): CommandItem[] {
+        return this.cart.carts;
     }
 
     add(commandItem: CommandItem) {
