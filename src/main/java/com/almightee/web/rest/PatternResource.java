@@ -1,6 +1,7 @@
 package com.almightee.web.rest;
 
 import com.almightee.service.PatternService;
+import com.almightee.service.StorageService;
 import com.codahale.metrics.annotation.Timed;
 import com.almightee.domain.Pattern;
 import com.almightee.repository.PatternRepository;
@@ -12,12 +13,14 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -42,6 +45,8 @@ public class PatternResource {
 
     @Autowired
     private PatternService patternService;
+    @Autowired
+    private StorageService storageService;
 
     public PatternResource() {
     }
@@ -55,12 +60,12 @@ public class PatternResource {
      */
     @PostMapping("/patterns")
     @Timed
-    public ResponseEntity<Pattern> createPattern(@RequestBody Pattern pattern) throws URISyntaxException {
+    public ResponseEntity<Pattern> createPattern(@RequestBody Pattern pattern, @RequestBody MultipartFile picture) throws URISyntaxException {
         log.debug("REST request to save Pattern : {}", pattern);
         if (pattern.getId() != null) {
             throw new BadRequestAlertException("A new pattern cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Pattern result = patternService.savePattern(pattern);
+        Pattern result = patternService.createPattern(pattern, picture);
         return ResponseEntity.created(new URI("/api/patterns/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -82,7 +87,7 @@ public class PatternResource {
         if (pattern.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Pattern result = patternService.savePattern(pattern);
+        Pattern result = patternService.updatePattern(pattern);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, pattern.getId().toString()))
             .body(result);
@@ -115,6 +120,15 @@ public class PatternResource {
         log.debug("REST request to get Pattern : {}", id);
         Optional<Pattern> pattern = patternService.getPattern(id);
         return ResponseUtil.wrapOrNotFound(pattern);
+    }
+
+    @GetMapping("/patterns/{username}/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> serveFile(@PathVariable String username, @PathVariable String filename) {
+
+        Resource file = storageService.load(username, filename);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+            "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
     /**
