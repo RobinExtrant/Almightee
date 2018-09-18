@@ -1,9 +1,11 @@
 <h3>
   Votre panier :
 </h3>
-<ol *ngIf="items && items.length > 0; else noitem">
+<ol *ngIf="items && items.length > 0">
   <li *ngFor="let item of items">
       <jhi-cart-item [item]="item"></jhi-cart-item>
-      <!--<a routerLink="/todo/{{todo.id}}">Edit</a>-->
   </li>
 </ol>
+<div>
+  <button type="submit" (click)="order()" class="btn btn-primary">Commander</button>
+</div>

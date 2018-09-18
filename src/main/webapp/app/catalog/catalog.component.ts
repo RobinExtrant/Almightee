@@ -79,6 +79,5 @@ export class CatalogComponent implements OnInit {
             command: null
         };
         this.cartService.add(commandItem);
-        console.log('Motif ajouté');
     }
 }

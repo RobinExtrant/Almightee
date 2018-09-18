@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Command } from './../shared/model/command.model';
 import { CommandItem } from './../shared/model/command-item.model';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,6 @@ export class CartService {
     }
 
     all(): CommandItem[] {
-        console.log('nombre : ' + this.cart.carts.length);
         return this.cart.carts;
     }
 
@@ -25,10 +25,9 @@ export class CartService {
         if (commandItemIfExists) {
             /*commandItemIfExists.setQuantity(commandItemIfExists.quantity + commandItem.quantity);*/
         } else {
-            console.log('Motif push');
             this.cart.carts.push(commandItem);
         }
-
+        localStorage.setItem('cart', JSON.stringify(this.cart.carts));
         return true;
     }
 
