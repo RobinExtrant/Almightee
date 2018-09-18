@@ -20,10 +20,13 @@ export class CartService {
     add(commandItem: CommandItem): boolean {
         let commandItemIfExists: CommandItem;
         commandItemIfExists = this.cart.carts.find(
-            x => x.color === commandItem.color && x.size === commandItem.size && x.pattern === commandItem.pattern
+            x =>
+                x.color == commandItem.color &&
+                x.size == commandItem.size &&
+                JSON.stringify(x.pattern).toLowerCase() == JSON.stringify(commandItem.pattern).toLowerCase()
         );
         if (commandItemIfExists) {
-            /*commandItemIfExists.setQuantity(commandItemIfExists.quantity + commandItem.quantity);*/
+            commandItemIfExists.setQuantity(commandItemIfExists.quantity + commandItem.quantity);
         } else {
             this.cart.carts.push(commandItem);
         }
