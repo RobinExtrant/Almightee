@@ -7,8 +7,8 @@
     </div>
   </mat-grid-tile>
 </mat-grid-list>
-<div align="center">
-  <input *ngIf="currentPage > totalPages" style="display: inline-block" type="button" (click)="previous()" value="<">
+<div align="center" *ngIf="patterns && patterns.length > 0;">
+  <input *ngIf="currentPage > 1" style="display: inline-block" type="button" (click)="previous()" value="<">
   <p style="display: inline-block">{{currentPage}}</p>
   <input *ngIf="currentPage < totalPages" style="display: inline-block" type="button" (click)="next()" value=">">
 </div>
