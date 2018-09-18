@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Command } from './../shared/model/command.model';
 import { CommandItem } from './../shared/model/command-item.model';
-import { LocalStorageService } from 'ngx-webstorage';
+import { CommandService } from 'app/entities/command';
 
 @Injectable({
     providedIn: 'root'
@@ -9,12 +9,12 @@ import { LocalStorageService } from 'ngx-webstorage';
 export class CartService {
     private cart: Command;
 
-    constructor() {
+    constructor(private commandService: CommandService) {
         this.cart = { carts: [] };
     }
 
     all(): CommandItem[] {
-        return this.cart.carts;
+        return JSON.parse(localStorage.getItem('cart'));
     }
 
     add(commandItem: CommandItem): boolean {
@@ -38,5 +38,7 @@ export class CartService {
         return this.cart.carts.splice(commandItemIndex, 1).length === 1;
     }
 
-    order() {}
+    order() {
+        this.commandService.create(this.cart).subscribe(orderRes => console.log(orderRes));
+    }
 }
