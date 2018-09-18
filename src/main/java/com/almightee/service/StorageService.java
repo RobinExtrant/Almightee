@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface StorageService {
     public void init();
-    public void store(MultipartFile file);
-    public PictureBO load(String username, String filename);
+    public String store(String author, MultipartFile file);
+    public PictureBO load(String author, String filename);
+    public void deleteAll();
 }

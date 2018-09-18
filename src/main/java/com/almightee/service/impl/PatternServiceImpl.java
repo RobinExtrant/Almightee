@@ -44,19 +44,22 @@ public class PatternServiceImpl implements PatternService {
     }
 
     @Override
-    public Pattern createPattern(Pattern pattern, MultipartFile picture) {
+    public Pattern createPattern(Pattern pattern) {
         Pattern result = patternRepository.save(pattern);
-        Long id = result.getId();
-
         patternSearchRepository.save(result);
         return result;
     }
 
     @Override
     public Pattern updatePattern(Pattern pattern) {
-        Pattern result = patternRepository.save(pattern);
-        patternSearchRepository.save(result);
-        return result;
+        return createPattern(pattern);
+    }
+
+    @Override
+    public void setPictureUrl(Long id, String url) {
+        Pattern patternToUpdate = patternRepository.getOne(id);
+        patternToUpdate.setImageURL(url);
+        patternRepository.save(patternToUpdate);
     }
 
     @Override

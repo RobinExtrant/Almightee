@@ -23,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
@@ -66,12 +67,12 @@ public class PatternResource {
      */
     @PostMapping("/patterns")
     @Timed
-    public ResponseEntity<Pattern> createPattern(@RequestBody Pattern pattern, @RequestBody MultipartFile picture) throws URISyntaxException {
+    public ResponseEntity<Pattern> createPattern(@RequestBody Pattern pattern) throws URISyntaxException {
         log.debug("REST request to save Pattern : {}", pattern);
         if (pattern.getId() != null) {
             throw new BadRequestAlertException("A new pattern cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Pattern result = patternService.createPattern(pattern, picture);
+        Pattern result = patternService.createPattern(pattern);
         return ResponseEntity.created(new URI("/api/patterns/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -128,7 +129,7 @@ public class PatternResource {
         return ResponseUtil.wrapOrNotFound(pattern);
     }
 
-    @GetMapping("/picture/{author}")
+    @GetMapping("/pictures/{author}")
     public void getImage(@PathVariable String author, @RequestParam("picture_name") final String picture_name, final HttpServletResponse response) {
         final PictureBO pic = storageService.load(author, picture_name);
         if (pic.getContent() == null) {
@@ -148,11 +149,21 @@ public class PatternResource {
         }
     }
 
-    @PostMapping("/picture/{author}")
-    public void setImage(@PathVariable String author,
-                         @RequestParam("picture") MultipartFile picture) {
-        storageService.store(picture);
-
+    @PostMapping("/pictures/{pattern_id}")
+    public ResponseEntity<String> setImage(@PathVariable Long pattern_id,
+                         @RequestParam MultipartFile picture)
+        throws URISyntaxException {
+        Optional<Pattern> pattern = patternService.getPattern(pattern_id);
+        if(pattern.isPresent()) {
+            String url = storageService.store(pattern.get().getAuthor(), picture);
+            patternService.setPictureUrl(pattern_id, url);
+            return ResponseEntity.created(new URI("/api/pictures/" + pattern_id))
+                .headers(HeaderUtil.createAlert("Picture storage success for pattern", pattern_id.toString()))
+                .body(picture.getName() + "stored.");
+        }
+        return ResponseEntity.notFound()
+            .headers(HeaderUtil.createAlert("Pattern not found", pattern_id.toString()))
+            .build();
     }
 
 
