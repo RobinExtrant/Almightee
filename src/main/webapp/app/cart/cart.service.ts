@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Command } from './../shared/model/command.model';
 import { CommandItem } from './../shared/model/command-item.model';
-import { LocalStorageService } from 'ngx-webstorage';
 
 @Injectable({
     providedIn: 'root'
@@ -9,8 +8,24 @@ import { LocalStorageService } from 'ngx-webstorage';
 export class CartService {
     private cart: Command;
 
+    static fillFromJSON<T>(json: string, objectToFill: T): T {
+        const jsonObj = JSON.parse(json);
+        for (const propName in jsonObj) {
+            objectToFill[propName] = jsonObj[propName];
+        }
+
+        return objectToFill;
+    }
+
     constructor() {
         this.cart = { carts: [] };
+        const oldCarts: CommandItem[] = JSON.parse(localStorage.getItem('cart'));
+        if (oldCarts) {
+            /*for (const oldCart in oldCarts){
+                this.cart.carts.push(CartService.fillFromJSON(oldCart, new CommandItem()));
+            }*/
+            this.cart.carts = oldCarts;
+        }
     }
 
     all(): CommandItem[] {
@@ -20,13 +35,10 @@ export class CartService {
     add(commandItem: CommandItem): boolean {
         let commandItemIfExists: CommandItem;
         commandItemIfExists = this.cart.carts.find(
-            x =>
-                x.color == commandItem.color &&
-                x.size == commandItem.size &&
-                JSON.stringify(x.pattern).toLowerCase() == JSON.stringify(commandItem.pattern).toLowerCase()
+            x => x.color === commandItem.color && x.size === commandItem.size && x.pattern.id === commandItem.pattern.id
         );
         if (commandItemIfExists) {
-            commandItemIfExists.setQuantity(commandItemIfExists.quantity + commandItem.quantity);
+            commandItem.setQuantity(commandItemIfExists.quantity + commandItem.quantity);
         } else {
             this.cart.carts.push(commandItem);
         }

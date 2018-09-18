@@ -13,7 +13,7 @@ export class CartListComponent implements OnInit {
     constructor(private cartService: CartService) {}
 
     ngOnInit() {
-        this.items = JSON.parse(localStorage.getItem('cart'));
+        this.items = this.cartService.all();
     }
 
     order() {
