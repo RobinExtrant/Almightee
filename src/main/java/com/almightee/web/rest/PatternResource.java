@@ -129,8 +129,8 @@ public class PatternResource {
     }
 
     @GetMapping("/picture/{author}")
-    public void getImage(@PathVariable String author, @RequestParam("idPicture") final String idPicture, final HttpServletResponse response) {
-        final PictureBO pic = storageService.load(author, idPicture);
+    public void getImage(@PathVariable String author, @RequestParam("picture_name") final String picture_name, final HttpServletResponse response) {
+        final PictureBO pic = storageService.load(author, picture_name);
         if (pic.getContent() == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         } else {
@@ -146,6 +146,13 @@ public class PatternResource {
                 log.error(e.getMessage(), e);
             }
         }
+    }
+
+    @PostMapping("/picture/{author}")
+    public void setImage(@PathVariable String author,
+                         @RequestParam("picture") MultipartFile picture) {
+        storageService.store(picture);
+
     }
 
 
