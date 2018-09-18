@@ -10,23 +10,15 @@ import { Principal } from '../../core/auth/principal.service';
 export class CartService {
     private cart: Command;
 
-    static fillFromJSON<T>(json: string, objectToFill: T): T {
-        const jsonObj = JSON.parse(json);
-        for (const propName in jsonObj) {
-            objectToFill[propName] = jsonObj[propName];
-        }
-
-        return objectToFill;
-    }
-
-    constructor(private commandService: CommandService, private principal: Principal) {
+    constructor() {
         this.cart = { carts: [] };
-        const oldCarts: CommandItem[] = JSON.parse(localStorage.getItem('cart'));
-        if (oldCarts) {
-            /*for (const oldCart in oldCarts){
-                this.cart.carts.push(CartService.fillFromJSON(oldCart, new CommandItem()));
-            }*/
-            this.cart.carts = oldCarts;
+        const oldCart = JSON.parse(localStorage.getItem('cart'));
+        if (oldCart) {
+            for (const commandItem of oldCart) {
+                const newCommandItem: CommandItem = new CommandItem();
+                Object.assign(newCommandItem, commandItem);
+                this.cart.carts.push(newCommandItem);
+            }
         }
     }
 
@@ -40,7 +32,7 @@ export class CartService {
             x => x.color === commandItem.color && x.size === commandItem.size && x.pattern.id === commandItem.pattern.id
         );
         if (commandItemIfExists) {
-            commandItem.setQuantity(commandItemIfExists.quantity + commandItem.quantity);
+            commandItemIfExists.setQuantity(commandItemIfExists.quantity + commandItem.quantity);
         } else {
             this.cart.carts.push(commandItem);
         }
