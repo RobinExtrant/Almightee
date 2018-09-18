@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { PatternService } from './../entities/pattern/pattern.service';
+import { CartService } from './../cart/cart.service';
 import { Pattern, IPattern } from './../shared/model/pattern.model';
+import { CommandItem, Color, Size } from './../shared/model/command-item.model';
 
 @Component({
     selector: 'jhi-catalog',
@@ -16,7 +18,7 @@ export class CatalogComponent implements OnInit {
     itemsPerPage: number;
     err: any;
 
-    constructor(private patternService: PatternService) {}
+    constructor(private patternService: PatternService, private cartService: CartService) {}
 
     ngOnInit() {
         /*this.patterns = [
@@ -65,7 +67,9 @@ export class CatalogComponent implements OnInit {
         this.patterns = data;
     }
 
-    addToCart(pattern: Pattern) {
-        console.log('On ajoute ici le motif ' + pattern.name + ' au panier');
+    addToCart(patternToAdd: Pattern) {
+        let commandItem: CommandItem;
+        commandItem = new CommandItem(null, 1, patternToAdd.price, Color.BLUE, Size.XXL, patternToAdd, null);
+        this.cartService.add(commandItem);
     }
 }
