@@ -91,7 +91,7 @@ public class PatternResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PatternResource patternResource = new PatternResource(patternRepository, mockPatternSearchRepository);
+        final PatternResource patternResource = new PatternResource();
         this.restPatternMockMvc = MockMvcBuilders.standaloneSetup(patternResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -184,7 +184,7 @@ public class PatternResourceIntTest {
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.intValue())))
             .andExpect(jsonPath("$.[*].theme").value(hasItem(DEFAULT_THEME.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getPattern() throws Exception {

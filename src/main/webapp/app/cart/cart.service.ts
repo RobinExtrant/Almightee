@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Command } from './../shared/model/command.model';
 import { CommandItem } from './../shared/model/command-item.model';
+import { CommandService } from '../entities/command/command.service';
+import { Principal } from '../../core/auth/principal.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +19,7 @@ export class CartService {
         return objectToFill;
     }
 
-    constructor() {
+    constructor(private commandService: CommandService, private principal: Principal) {
         this.cart = { carts: [] };
         const oldCarts: CommandItem[] = JSON.parse(localStorage.getItem('cart'));
         if (oldCarts) {
@@ -50,5 +52,18 @@ export class CartService {
         return this.cart.carts.splice(commandItemIndex, 1).length === 1;
     }
 
-    order() {}
+    clear() {
+        localStorage.clear();
+        this.cart.carts.length = 0;
+    }
+
+    order() {
+        if (this.cart.carts.length != 0) {
+            /*this.principal.identity().then(id => {
+                this.cart.id = id;
+            });
+            console.log("ID user :" + this.cart.id);*/
+            this.commandService.create(this.cart).subscribe(commandRes => console.log('Commande confirmée : ' + commandRes));
+        }
+    }
 }

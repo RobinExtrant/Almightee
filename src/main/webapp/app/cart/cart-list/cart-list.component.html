@@ -1,11 +1,19 @@
 <h3>
   Votre panier :
 </h3>
-<ol *ngIf="items && items.length > 0">
-  <li *ngFor="let item of items">
-      <jhi-cart-item [item]="item"></jhi-cart-item>
-  </li>
-</ol>
-<div>
-  <button type="submit" (click)="order()" class="btn btn-primary">Commander</button>
+<div *ngIf="items && items.length > 0; else noitem">
+    <ol>
+      <li *ngFor="let item of items">
+          <jhi-cart-item [item]="item"></jhi-cart-item>
+      </li>
+    </ol>
+    <div>
+        <button type="submit" (click)="clear()" class="btn btn-danger">Vider le panier</button>
+        <button type="submit" (click)="order()" class="btn btn-primary">Commander</button>
+    </div>
 </div>
+<ng-template #noitem>
+    <div>
+        Votre panier est vide.
+    </div>
+</ng-template>

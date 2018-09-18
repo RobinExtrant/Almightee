@@ -85,7 +85,7 @@ public class CommandResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CommandResource commandResource = new CommandResource(commandRepository, mockCommandSearchRepository);
+        final CommandResource commandResource = new CommandResource();
         this.restCommandMockMvc = MockMvcBuilders.standaloneSetup(commandResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -172,7 +172,7 @@ public class CommandResourceIntTest {
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL.intValue())));
     }
-    
+
     @Test
     @Transactional
     public void getCommand() throws Exception {
