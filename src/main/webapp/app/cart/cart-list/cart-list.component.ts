@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommandItem } from 'app/shared/model/command-item.model';
 import { CartService } from 'app/cart/cart.service';
-import { Principal } from '../../core/auth/principal.service';
 
 @Component({
     selector: 'jhi-cart-list',
@@ -11,18 +10,14 @@ import { Principal } from '../../core/auth/principal.service';
 export class CartListComponent implements OnInit {
     items: CommandItem[];
 
-    constructor(private cartService: CartService, private principal: Principal) {}
+    constructor(private cartService: CartService) {}
 
     ngOnInit() {
         this.items = this.cartService.all();
     }
 
     order() {
-        if (this.principal.isAuthenticated()) {
-            this.cartService.order();
-        } else {
-            console.log('URDUR PAS CONNECTE');
-        }
+        this.cartService.order();
     }
 
     clear() {
