@@ -43,6 +43,6 @@ export class CommandItem implements ICommandItem {
 
     setQuantity(newQuantity: number): void {
         this.quantity = newQuantity;
-        this.price = this.quantity * this.price;
+        this.price = this.quantity * this.pattern.price;
     }
 }
