@@ -19,4 +19,8 @@ export class CartListComponent implements OnInit {
     order() {
         this.cartService.order();
     }
+
+    clear() {
+        this.cartService.clear();
+    }
 }
