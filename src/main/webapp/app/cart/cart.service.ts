@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Command } from './../shared/model/command.model';
+import { Command, CommandStatus } from './../shared/model/command.model';
 import { CommandItem } from './../shared/model/command-item.model';
+import { Customer } from './../shared/model/customer.model';
 import { CommandService } from '../entities/command/command.service';
-import { Principal } from '../../core/auth/principal.service';
+import { Principal } from '../core/auth/principal.service';
+import * as moment from 'moment';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +12,7 @@ import { Principal } from '../../core/auth/principal.service';
 export class CartService {
     private cart: Command;
 
-    constructor() {
+    constructor(private commandService: CommandService, private principal: Principal) {
         this.cart = { carts: [] };
         const oldCart = JSON.parse(localStorage.getItem('cart'));
         if (oldCart) {
@@ -50,12 +52,28 @@ export class CartService {
     }
 
     order() {
-        if (this.cart.carts.length != 0) {
-            /*this.principal.identity().then(id => {
-                this.cart.id = id;
-            });
-            console.log("ID user :" + this.cart.id);*/
-            this.commandService.create(this.cart).subscribe(commandRes => console.log('Commande confirmée : ' + commandRes));
+        if (this.cart.carts.length !== 0) {
+            if (this.principal.isAuthenticated()) {
+                this.principal.identity().then(user => {
+                    this.cart.customer = new Customer(user.id);
+                });
+                this.cart.date = moment();
+                this.cart.status = CommandStatus.IN_CART;
+                this.cart.total = this.total();
+                this.commandService
+                    .create(this.cart)
+                    .subscribe(commandRes => navigate('URRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR'));
+            } else {
+                console.log('URDUR PAS CONNECTE');
+            }
         }
+    }
+
+    total(): number {
+        let total = 0;
+        for (const item of this.cart.carts) {
+            total += item.price;
+        }
+        return total;
     }
 }
