@@ -66,10 +66,4 @@ export class CatalogComponent implements OnInit {
         this.totalPages = this.totalItems / this.itemsPerPage;
         this.patterns = data;
     }
-
-    addToCart(patternToAdd: Pattern) {
-        let commandItem: CommandItem;
-        commandItem = new CommandItem(null, 1, patternToAdd.price, Color.BLUE, Size.XXL, patternToAdd, null);
-        this.cartService.add(commandItem);
-    }
 }
