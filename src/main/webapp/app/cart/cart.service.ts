@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Command, CommandStatus } from './../shared/model/command.model';
 import { CommandItem } from './../shared/model/command-item.model';
 import { Customer } from './../shared/model/customer.model';
@@ -14,7 +15,7 @@ export class CartService {
     private cart: Command;
     private patternSelected: Pattern;
 
-    constructor(private commandService: CommandService, private principal: Principal) {
+    constructor(private commandService: CommandService, private principal: Principal, private router: Router) {
         this.cart = { carts: [] };
         this.patternSelected = null;
         const oldCart = JSON.parse(localStorage.getItem('cart'));
@@ -63,9 +64,7 @@ export class CartService {
                 this.cart.date = moment();
                 this.cart.status = CommandStatus.IN_CART;
                 this.cart.total = this.total();
-                this.commandService
-                    .create(this.cart)
-                    .subscribe(commandRes => navigate('URRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR'));
+                this.commandService.create(this.cart).subscribe(commandRes => this.router.navigate(['cart/' + this.cart.id]));
             } else {
                 console.log('URDUR PAS CONNECTE');
             }

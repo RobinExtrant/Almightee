@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-import { CartConfirmComponent } from 'app/cart/cart-list/cart-confirm.component';
+import { CartConfirmComponent } from 'app/cart/cart-confirm/cart-confirm.component';
 
 export const cartConfirmRoute: Route = {
     path: 'cart/:id',
