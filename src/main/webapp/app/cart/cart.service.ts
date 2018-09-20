@@ -43,11 +43,15 @@ export class CartService {
             this.cart.carts.push(commandItem);
         }
         localStorage.setItem('cart', JSON.stringify(this.cart.carts));
+        this.patternSelected = null;
+        this.router.navigate(['catalog/']);
         return true;
     }
 
     remove(commandItemIndex: number): boolean {
-        return this.cart.carts.splice(commandItemIndex, 1).length === 1;
+        const itemRemoved = this.cart.carts.splice(commandItemIndex, 1).length === 1;
+        localStorage.setItem('cart', JSON.stringify(this.cart.carts));
+        return itemRemoved;
     }
 
     clear() {
