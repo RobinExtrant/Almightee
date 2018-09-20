@@ -8,8 +8,11 @@
       </li>
     </ol>
     <div>
-        <button type="submit" (click)="clear()" class="btn btn-danger">Vider le panier</button>
-        <button type="submit" (click)="order()" class="btn btn-primary">Commander</button>
+        <button (click)="clear()" class="btn btn-danger">Vider le panier</button>
+        <button *ngIf="this.principal.isAuthenticated(); else notlogin" (click)="order()" class="btn btn-primary">Commander</button>
+        <ng-template #notlogin>
+            <button disabled="true" class="btn btn-dark">Connectez-vous</button>
+        </ng-template>
     </div>
 </div>
 <ng-template #noitem>

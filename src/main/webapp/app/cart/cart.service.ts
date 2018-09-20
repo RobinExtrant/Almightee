@@ -61,9 +61,9 @@ export class CartService {
                 this.cart.date = moment();
                 this.cart.status = CommandStatus.IN_CART;
                 this.cart.total = this.total();
-                this.commandService.create(this.cart).subscribe(commandRes => this.router.navigate(['cart/' + this.cart.id]));
+                this.commandService.create(this.cart).subscribe(commandRes => this.router.navigate(['/cart', commandRes.body.id]));
             } else {
-                console.log('URDUR PAS CONNECTE');
+                console.log('Login nécessaire');
             }
         }
     }
