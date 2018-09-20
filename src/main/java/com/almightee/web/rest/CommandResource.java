@@ -1,5 +1,6 @@
 package com.almightee.web.rest;
 
+import com.almightee.domain.Command_;
 import com.almightee.domain.Customer;
 import com.almightee.service.CommandService;
 import com.almightee.service.dto.UserDTO;
@@ -92,37 +93,37 @@ public class CommandResource {
      */
     @GetMapping("/commands")
     @Timed
-    public List<Command> getAllCommands() throws URISyntaxException {
+    public List<Command> getAllCommands(@SessionAttribute("customer") Customer customer) throws URISyntaxException {
         log.debug("REST request to get all Commands of the connected customer");
-        return commandService.retrieveAllCommands();
+        return commandService.retrieveAllCommands(customer.getId());
     }
 
     /**
      * GET  /commands/:id : get the "id" command.
      *
-     * @param id the id of the command to retrieve
+     * @param idCommand the id of the command to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the command, or with status 404 (Not Found)
      */
-    @GetMapping("/commands/{id}")
+    @GetMapping("/commands/{idCommand}")
     @Timed
-    public ResponseEntity<Command> getCommand(@PathVariable Long id) {
-        log.debug("REST request to get Command : {}", id);
-        Optional<Command> command = commandService.getCommand(id);
+    public ResponseEntity<Command> getCommand(@SessionAttribute("customer") Customer customer, @PathVariable Long idCommand) {
+        log.debug("REST request to get Command : {}", idCommand);
+        Optional<Command> command = commandService.getCommand(customer.getId(), idCommand);
         return ResponseUtil.wrapOrNotFound(command);
     }
 
     /**
      * DELETE  /commands/:id : delete the "id" command.
      *
-     * @param id the id of the command to delete
+     * @param idCommand the id of the command to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @DeleteMapping("/commands/{id}")
+    @DeleteMapping("/commands/{idCommand}")
     @Timed
-    public ResponseEntity<Void> deleteCommand(@PathVariable Long id) {
-        log.debug("REST request to delete Command : {}", id);
-        commandService.deleteCommand(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    public ResponseEntity<Void> deleteCommand(@SessionAttribute("customer") Customer customer, @PathVariable Long idCommand) {
+        log.debug("REST request to delete Command : {}", idCommand);
+        commandService.deleteCommand(customer.getId(), idCommand);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, idCommand.toString())).build();
     }
 
     /**

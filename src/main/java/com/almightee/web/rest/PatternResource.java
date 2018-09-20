@@ -1,6 +1,8 @@
 package com.almightee.web.rest;
 
 import com.almightee.service.PatternService;
+import com.almightee.service.StorageService;
+import com.almightee.service.util.PictureBO;
 import com.codahale.metrics.annotation.Timed;
 import com.almightee.domain.Pattern;
 import com.almightee.repository.PatternRepository;
@@ -12,13 +14,21 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -42,6 +52,8 @@ public class PatternResource {
 
     @Autowired
     private PatternService patternService;
+    @Autowired
+    private StorageService storageService;
 
     public PatternResource() {
     }
@@ -60,7 +72,7 @@ public class PatternResource {
         if (pattern.getId() != null) {
             throw new BadRequestAlertException("A new pattern cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Pattern result = patternService.savePattern(pattern);
+        Pattern result = patternService.createPattern(pattern);
         return ResponseEntity.created(new URI("/api/patterns/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -82,7 +94,7 @@ public class PatternResource {
         if (pattern.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Pattern result = patternService.savePattern(pattern);
+        Pattern result = patternService.updatePattern(pattern);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, pattern.getId().toString()))
             .body(result);
@@ -116,6 +128,45 @@ public class PatternResource {
         Optional<Pattern> pattern = patternService.getPattern(id);
         return ResponseUtil.wrapOrNotFound(pattern);
     }
+
+    @GetMapping("/pictures/{author}")
+    public void getImage(@PathVariable String author, @RequestParam("picture_name") final String picture_name, final HttpServletResponse response) {
+        final PictureBO pic = storageService.load(author, picture_name);
+        if (pic.getContent() == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        } else {
+            final byte[] file = pic.getContent();
+            response.setContentType("application/octet-stream");
+            response.setHeader("Content-Disposition","attachment;filename=\"" + pic.getName() + "\"");
+            response.setContentLength(file.length);
+            final InputStream inputStream = new ByteArrayInputStream(file);
+            try {
+                FileCopyUtils.copy(inputStream, response.getOutputStream());
+            } catch (final IOException e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                log.error(e.getMessage(), e);
+            }
+        }
+    }
+
+    @PostMapping("/pictures/{pattern_id}")
+    public ResponseEntity<String> setImage(@PathVariable Long pattern_id,
+                         @RequestParam MultipartFile picture)
+        throws URISyntaxException {
+        Optional<Pattern> pattern = patternService.getPattern(pattern_id);
+        if(pattern.isPresent()) {
+            String url = storageService.store(pattern.get().getAuthor(), picture);
+            patternService.setPictureUrl(pattern_id, url);
+            return ResponseEntity.created(new URI("/api/pictures/" + pattern_id))
+                .headers(HeaderUtil.createAlert("Picture storage success for pattern", pattern_id.toString()))
+                .body(picture.getName() + "stored.");
+        }
+        return ResponseEntity.notFound()
+            .headers(HeaderUtil.createAlert("Pattern not found", pattern_id.toString()))
+            .build();
+    }
+
+
 
     /**
      * DELETE  /patterns/:id : delete the "id" pattern.

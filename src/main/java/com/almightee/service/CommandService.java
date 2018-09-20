@@ -10,10 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CommandService {
-    public List<Command> retrieveAllCommandsByUser(Customer customer);
-    public Optional<Command> getCommand(Long id);
     public Command saveCommand(Command command);
-    public void deleteCommand(Long id);
-
-    public List<Command> retrieveAllCommands();
+    public void deleteCommand(Long idCustomer, Long idCommand);
+    public Optional<Command> getCommand(Long idCustomer, Long idCommand);
+    public List<Command> retrieveAllCommands(Long idCustomer);
 }

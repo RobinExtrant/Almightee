@@ -3,9 +3,11 @@ package com.almightee.repository;
 import com.almightee.domain.Command;
 import com.almightee.domain.Customer;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -14,5 +16,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface CommandRepository extends JpaRepository<Command, Long> {
-    List<Command> findAllByCustomer(Customer customer);
+
+    public List<Command> findByCustomer(Long customer_id);
+    public Optional<Command> findByCustomerIdAndId(Long customer_id, Long id);
 }
