@@ -20,7 +20,6 @@ export class CartConfirmComponent implements OnInit {
         });
         this.commandService.find(this.id).subscribe(res => {
             this.command = res.body;
-            this.command.date = this.command.date.format('DD/MM/YYYY');
         });
     }
 }
