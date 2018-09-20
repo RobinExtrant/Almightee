@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommandItem, Color, Size } from 'app/shared/model/command-item.model';
 import { CartService } from 'app/cart/cart.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'jhi-item-edit',
@@ -14,7 +15,7 @@ export class ItemEditComponent implements OnInit {
     sizes = { values: Size, keys: Object.keys(Size) };
     quantity: string;
 
-    constructor(private cartService: CartService) {}
+    constructor(private modalService: NgbModal, private cartService: CartService) {}
 
     ngOnInit() {
         this.commandItem = new CommandItem();

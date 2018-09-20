@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [FormsModule, CommonModule, RouterModule.forChild([CATALOG_ROUTE]), MatGridListModule],
-    declarations: [CatalogComponent, ItemEditComponent]
+    declarations: [CatalogComponent, ItemEditComponent],
+    entryComponents: [ItemEditComponent]
 })
 export class CatalogModule {}

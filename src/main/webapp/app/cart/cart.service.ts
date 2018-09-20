@@ -7,6 +7,8 @@ import { CommandService } from '../entities/command/command.service';
 import { Principal } from '../core/auth/principal.service';
 import { Pattern } from 'app/shared/model/pattern.model';
 import * as moment from 'moment';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ItemEditComponent } from '../catalog/item-edit/item-edit.component';
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +16,7 @@ import * as moment from 'moment';
 export class CartService {
     private cart: Command;
     private patternSelected: Pattern;
+    private popupToClose: NgbModalRef;
 
     constructor(private commandService: CommandService, private principal: Principal, private router: Router) {
         this.cart = { carts: [] };
@@ -45,6 +48,9 @@ export class CartService {
         localStorage.setItem('cart', JSON.stringify(this.cart.carts));
         this.patternSelected = null;
         this.router.navigate(['catalog/']);
+        if (this.popupToClose) {
+            this.popupToClose.close();
+        }
         return true;
     }
 
@@ -93,5 +99,9 @@ export class CartService {
 
     getPatternSelected(): Pattern {
         return this.patternSelected;
+    }
+
+    setPopupToClose(popupToClose: NgbModalRef) {
+        this.popupToClose = popupToClose;
     }
 }
