@@ -5,6 +5,7 @@ import { CommandItem } from './../shared/model/command-item.model';
 import { Customer } from './../shared/model/customer.model';
 import { CommandService } from '../entities/command/command.service';
 import { Principal } from '../core/auth/principal.service';
+import { Pattern } from 'app/shared/model/pattern.model';
 import * as moment from 'moment';
 
 @Injectable({
@@ -12,9 +13,11 @@ import * as moment from 'moment';
 })
 export class CartService {
     private cart: Command;
+    private patternSelected: Pattern;
 
     constructor(private commandService: CommandService, private principal: Principal, private router: Router) {
         this.cart = { carts: [] };
+        this.patternSelected = null;
         const oldCart = JSON.parse(localStorage.getItem('cart'));
         if (oldCart) {
             for (const commandItem of oldCart) {
@@ -26,12 +29,12 @@ export class CartService {
     }
 
     all(): CommandItem[] {
-        return JSON.parse(localStorage.getItem('cart'));
+        return <CommandItem[]>this.cart.carts;
     }
 
     add(commandItem: CommandItem): boolean {
         let commandItemIfExists: CommandItem;
-        commandItemIfExists = this.cart.carts.find(
+        commandItemIfExists = <CommandItem>this.cart.carts.find(
             x => x.color === commandItem.color && x.size === commandItem.size && x.pattern.id === commandItem.pattern.id
         );
         if (commandItemIfExists) {
@@ -40,11 +43,15 @@ export class CartService {
             this.cart.carts.push(commandItem);
         }
         localStorage.setItem('cart', JSON.stringify(this.cart.carts));
+        this.patternSelected = null;
+        this.router.navigate(['catalog/']);
         return true;
     }
 
     remove(commandItemIndex: number): boolean {
-        return this.cart.carts.splice(commandItemIndex, 1).length === 1;
+        const itemRemoved = this.cart.carts.splice(commandItemIndex, 1).length === 1;
+        localStorage.setItem('cart', JSON.stringify(this.cart.carts));
+        return itemRemoved;
     }
 
     clear() {
@@ -74,5 +81,17 @@ export class CartService {
             total += item.price;
         }
         return total;
+    }
+
+    setPatternSelected(patternSelected: Pattern) {
+        this.patternSelected = patternSelected;
+    }
+
+    hasPatternSelected(): boolean {
+        return this.patternSelected != null;
+    }
+
+    getPatternSelected(): Pattern {
+        return this.patternSelected;
     }
 }
