@@ -18,8 +18,9 @@ export class CartConfirmComponent implements OnInit {
         this.route.params.subscribe((params: Params) => {
             this.id = params['id'];
         });
-        this.commandService.find(this.id).subscribe(res => (this.command = res));
-
-        console.log(this.command.status);
+        this.commandService.find(this.id).subscribe(res => {
+            this.command = res.body;
+            this.command.date = this.command.date.format('DD/MM/YYYY');
+        });
     }
 }
