@@ -1,0 +1,36 @@
+{
+    "name": "Pattern",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "author",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "imageURL",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "price",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "theme",
+            "fieldType": "Theme",
+            "fieldValues": "NATURE,ANIME,DESIGN,LOVE,ANIMAL"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20180913124637",
+    "entityTableName": "pattern",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
