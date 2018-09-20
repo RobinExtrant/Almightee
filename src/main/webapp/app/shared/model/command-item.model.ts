@@ -1,7 +1,7 @@
 import { IPattern } from 'app/shared/model//pattern.model';
 import { ICommand } from 'app/shared/model//command.model';
 
-export const enum Color {
+export enum Color {
     WHITE = 'WHITE',
     BLACK = 'BLACK',
     BLUE = 'BLUE',
@@ -10,7 +10,7 @@ export const enum Color {
     RED = 'RED'
 }
 
-export const enum Size {
+export enum Size {
     S = 'S',
     M = 'M',
     L = 'L',
@@ -43,6 +43,10 @@ export class CommandItem implements ICommandItem {
 
     setQuantity(newQuantity: number): void {
         this.quantity = newQuantity;
-        this.price = this.quantity * this.price;
+        this.updatePrice();
+    }
+
+    updatePrice() {
+        this.price = this.quantity * this.pattern.price;
     }
 }
