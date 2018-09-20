@@ -4,6 +4,8 @@ import { PatternService } from './../entities/pattern/pattern.service';
 import { CartService } from './../cart/cart.service';
 import { Pattern, IPattern } from './../shared/model/pattern.model';
 import { CommandItem, Color, Size } from './../shared/model/command-item.model';
+import { ItemEditComponent } from 'app/catalog/item-edit/item-edit.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'jhi-catalog',
@@ -18,7 +20,7 @@ export class CatalogComponent implements OnInit {
     itemsPerPage: number;
     err: any;
 
-    constructor(private patternService: PatternService, private cartService: CartService) {}
+    constructor(private modalService: NgbModal, private patternService: PatternService, private cartService: CartService) {}
 
     ngOnInit() {
         /*this.patterns = [
@@ -59,6 +61,12 @@ export class CatalogComponent implements OnInit {
             })
             .subscribe((res: HttpResponse<IPattern[]>) => this.paginatePatterns(res.body, res.headers));
         return;
+    }
+
+    choosePattern(patternSelected: Pattern) {
+        this.cartService.setPatternSelected(patternSelected);
+        const modalRef = this.modalService.open(ItemEditComponent);
+        this.cartService.setPopupToClose(modalRef);
     }
 
     private paginatePatterns(data: IPattern[], headers: HttpHeaders) {
