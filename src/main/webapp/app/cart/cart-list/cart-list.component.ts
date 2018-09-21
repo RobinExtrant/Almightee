@@ -11,7 +11,7 @@ import { Principal } from '../../core/auth/principal.service';
 export class CartListComponent implements OnInit {
     items: CommandItem[];
 
-    constructor(private cartService: CartService, private principal: Principal) {}
+    constructor(private cartService: CartService, public principal: Principal) {}
 
     ngOnInit() {
         this.items = this.cartService.all();

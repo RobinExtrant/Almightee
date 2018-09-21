@@ -51,14 +51,13 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="birth">Date de naissance</label>
-                    <input type="date" class="form-control" [(ngModel)]="registerAccount.birth" id="birth" #birth name="birth" #birth="ngModel" max="2018-11-20"
-                           required>
+                    <input type="date" class="form-control" [(ngModel)]="registerAccount.birth" #birth id="birth" name="birth" #birth="ngModel" max="2018-11-20">
                     <div *ngIf="birth.dirty && birth.invalid">
                         <small class="form-text text-danger" *ngIf="birth.errors.required">
                             Votre date de naissance est requise.
                         </small>
                         <small class="form-text text-danger" *ngIf="birth.errors.max"
-                        >
+                            >
                             Votre date de naissance ne peut pas dépasser la date d'aujourd'hui.
                         </small>
                     </div>
@@ -83,6 +82,16 @@
                         <small class="form-text text-danger" *ngIf="email.errors.maxlength"
                               >
                             Votre email ne peut pas dépasser 100 caractères.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="tel">Téléphone</label>
+                    <input type="tel" class="form-control" [(ngModel)]="registerAccount.tel" id="tel" name="tel" #tel="ngModel" maxlength="10" pattern="[0-9]{10}">
+                    <div *ngIf="tel.dirty && tel.invalid">
+                        <small class="form-text text-danger" *ngIf="tel.errors.pattern"
+                        >
+                            Votre numéro de téléphone doit être de la forme "0123456789" et constitué de chiffres.
                         </small>
                     </div>
                 </div>
