@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
-import { ICommandItem } from 'app/shared/model/command-item.model';
-import { ICustomer } from 'app/shared/model/customer.model';
+import { ICommandItem } from 'app/shared/model//command-item.model';
+import { ICustomer } from 'app/shared/model//customer.model';
+import { IUser } from 'app/core/user/user.model';
 
 export const enum CommandStatus {
     IN_CART = 'IN_CART',
@@ -17,6 +18,7 @@ export interface ICommand {
     total?: number;
     carts?: ICommandItem[];
     customer?: ICustomer;
+    user?: IUser;
 }
 
 export class Command implements ICommand {
@@ -26,6 +28,7 @@ export class Command implements ICommand {
         public status?: CommandStatus,
         public total?: number,
         public carts?: ICommandItem[],
-        public customer?: ICustomer
+        public customer?: ICustomer,
+        public user?: IUser
     ) {}
 }
