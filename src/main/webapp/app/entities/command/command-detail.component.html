@@ -23,6 +23,10 @@
                         <a [routerLink]="['/customer', command.customer?.id, 'view']">{{command.customer?.id}}</a>
                     </div>
                 </dd>
+                <dt><span>User</span></dt>
+                <dd>
+                    {{command.user?.login}}
+                </dd>
             </dl>
 
             <button type="submit"

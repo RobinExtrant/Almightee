@@ -85,7 +85,8 @@ public class CommandResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CommandResource commandResource = new CommandResource();
+        final CommandResource commandResource = new CommandResource(commandRepository, mockCommandSearchRepository);
+
         this.restCommandMockMvc = MockMvcBuilders.standaloneSetup(commandResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

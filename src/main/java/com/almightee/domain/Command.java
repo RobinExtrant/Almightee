@@ -28,7 +28,6 @@ public class Command implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -49,6 +48,10 @@ public class Command implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("commands")
     private Customer customer;
+
+    @ManyToOne
+    @JsonIgnoreProperties("")
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -134,6 +137,19 @@ public class Command implements Serializable {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Command user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

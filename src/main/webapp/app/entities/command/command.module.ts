@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AlmighteeSharedModule } from 'app/shared';
+import { AlmighteeAdminModule } from 'app/admin/admin.module';
 import {
     CommandComponent,
     CommandDetailComponent,
@@ -15,7 +16,7 @@ import {
 const ENTITY_STATES = [...commandRoute, ...commandPopupRoute];
 
 @NgModule({
-    imports: [AlmighteeSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [AlmighteeSharedModule, AlmighteeAdminModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         CommandComponent,
         CommandDetailComponent,

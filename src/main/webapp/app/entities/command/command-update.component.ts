@@ -8,6 +8,7 @@ import { ICommand } from 'app/shared/model/command.model';
 import { CommandService } from './command.service';
 import { ICustomer } from 'app/shared/model/customer.model';
 import { CustomerService } from 'app/entities/customer';
+import { IUser, UserService } from 'app/core';
 
 @Component({
     selector: 'jhi-command-update',
@@ -18,12 +19,15 @@ export class CommandUpdateComponent implements OnInit {
     isSaving: boolean;
 
     customers: ICustomer[];
+
+    users: IUser[];
     dateDp: any;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private commandService: CommandService,
         private customerService: CustomerService,
+        private userService: UserService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -35,6 +39,12 @@ export class CommandUpdateComponent implements OnInit {
         this.customerService.query().subscribe(
             (res: HttpResponse<ICustomer[]>) => {
                 this.customers = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.userService.query().subscribe(
+            (res: HttpResponse<IUser[]>) => {
+                this.users = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -71,6 +81,10 @@ export class CommandUpdateComponent implements OnInit {
     }
 
     trackCustomerById(index: number, item: ICustomer) {
+        return item.id;
+    }
+
+    trackUserById(index: number, item: IUser) {
         return item.id;
     }
     get command() {
