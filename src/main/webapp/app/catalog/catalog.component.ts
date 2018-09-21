@@ -65,7 +65,7 @@ export class CatalogComponent implements OnInit {
 
     choosePattern(patternSelected: Pattern) {
         this.cartService.setPatternSelected(patternSelected);
-        const modalRef = this.modalService.open(ItemEditComponent);
+        const modalRef = this.modalService.open(ItemEditComponent, { size: 'lg', windowClass: 'modal-adaptive-s1' });
         this.cartService.setPopupToClose(modalRef);
     }
 

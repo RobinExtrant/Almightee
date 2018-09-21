@@ -1,19 +1,26 @@
-<div>
-    <span>Couleur: </span>
-    <select [(ngModel)]="commandItem.color" (ngModelChange)="onChange($event)" name="colorItem">
-        <option [ngValue]="colors.values[colorKey]" *ngFor="let colorKey of colors.keys">{{colorKey}}</option>
-    </select>
-</div>
-<div>
-    <span>Taille: </span>
-    <select [(ngModel)]="commandItem.size" (ngModelChange)="onChange($event)" name="sizeItem">
-        <option [ngValue]="sizes.values[sizeKey]" *ngFor="let sizeKey of sizes.keys">{{sizeKey}}</option>
-    </select>
-</div>
-<div>
-    <span>Quantité: </span>
-    <input type="number" [(ngModel)]="commandItem.quantity" name="quantity"></span>
-</div>
-<div>
-    <input type="button" (click)="addToCart()" value="Ajouter au panier">
+<div class="popup">
+    <div class="motif">
+        <img src="{{cartService.getPatternSelected().imageURL}}" width="100%" height="100%">
+    </div>
+    <div class="formulaire">
+            <div>
+                <span>Couleur:<br/>
+                <select [(ngModel)]="commandItem.color" (ngModelChange)="onChange($event)" name="colorItem">
+                    <option [ngValue]="colors.values[colorKey]" *ngFor="let colorKey of colors.keys">{{colorKey}}</option>
+                </select></span>
+            </div>
+            <div>
+                <span>Taille:<br/>
+                <select [(ngModel)]="commandItem.size" (ngModelChange)="onChange($event)" name="sizeItem">
+                    <option [ngValue]="sizes.values[sizeKey]" *ngFor="let sizeKey of sizes.keys">{{sizeKey}}</option>
+                </select></span>
+            </div>
+            <div>
+                <span>Quantité:<br/>
+                <input type="number" min=0 [(ngModel)]="commandItem.quantity" name="quantity"></span>
+            </div>
+            <div>
+                <span><input type="button" (click)="addToCart()" value="Ajouter au panier"></span>
+            </div>
+    </div>
 </div>

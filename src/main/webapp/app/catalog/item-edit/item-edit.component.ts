@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
     selector: 'jhi-item-edit',
     templateUrl: './item-edit.component.html',
-    styles: []
+    styleUrls: ['item-edit.scss']
 })
 export class ItemEditComponent implements OnInit {
     commandItem: CommandItem;

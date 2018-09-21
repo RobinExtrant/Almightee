@@ -9,9 +9,8 @@ Navbar
 
 .jh-navbar {
     background-color: #2196f3;
-    padding: 0.2em 1em;
     .profile-image {
-        margin: -10px 0px;
+        margin: 0px 0px;
         height: 40px;
         width: 40px;
         border-radius: 50%;
@@ -27,7 +26,7 @@ Navbar
     ul.navbar-nav {
         padding: 0.5em;
         .nav-item {
-            margin-left: 1.5rem;
+            margin-left: 1rem;
         }
     }
     a.nav-link {
@@ -45,14 +44,12 @@ Navbar
         }
     }
     #recherche {
-        float: left;
+        display: inline-block;
         padding: 4px;
         background-color: white;
         color: black;
-        width: 700px;
+        width: 550px;
         border: none;
-        margin-right: 16px;
-        margin-left: 16px;
         font-size: 14px;
     }
 }
@@ -72,20 +69,4 @@ Navbar
 .navbar-title {
     display: inline-block;
     vertical-align: middle;
-}
-
-/* ==========================================================================
-Logo styles
-========================================================================== */
-.navbar-brand {
-    &.logo {
-        padding: 5px 15px;
-        .logo-img {
-            height: 45px;
-            width: 70px;
-            display: inline-block;
-            vertical-align: middle;
-            background-size: contain;
-        }
-    }
 }

@@ -1,7 +1,11 @@
 .banniere {
-    display: inline-block;
+    display: block;
     height: 90px;
     width: 100%;
-    background: url('../../../content/images/almightee.png') no-repeat center top;
+    background: url('../../../content/images/almightee.jpg') no-repeat center top;
     background-size: contain;
+}
+
+.couleur {
+    background-color: #2196f3;
 }

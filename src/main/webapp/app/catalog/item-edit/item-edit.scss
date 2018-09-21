@@ -1,0 +1,30 @@
+.popup {
+    display: block;
+    overflow: hidden;
+    background-color: white;
+    height: 600px;
+    width: 800px;
+    border: black solid 1mm;
+}
+
+.formulaire {
+    overflow: hidden;
+    background-color: #2196f3;
+    height: 100%;
+    width: 30%;
+}
+
+.formulaire span {
+    display: block;
+    color: #e00404;
+    margin-top: 40%;
+    text-align: center;
+}
+
+.motif {
+    float: left;
+    height: 100%;
+    width: 70%;
+    background-color: white;
+    text-align: center;
+}
