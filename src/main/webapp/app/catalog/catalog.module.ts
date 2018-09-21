@@ -6,10 +6,11 @@ import { CatalogComponent } from './catalog.component';
 import { ItemEditComponent } from './item-edit/item-edit.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FormsModule } from '@angular/forms';
+import { PatternItemComponent } from './pattern-item/pattern-item.component';
 
 @NgModule({
     imports: [FormsModule, CommonModule, RouterModule.forChild([CATALOG_ROUTE]), MatGridListModule],
-    declarations: [CatalogComponent, ItemEditComponent],
+    declarations: [CatalogComponent, ItemEditComponent, PatternItemComponent],
     entryComponents: [ItemEditComponent]
 })
 export class CatalogModule {}
