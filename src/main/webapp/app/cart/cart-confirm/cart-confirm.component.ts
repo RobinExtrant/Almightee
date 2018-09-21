@@ -9,7 +9,7 @@ import { CommandService } from '../../entities/command/command.service';
     styles: []
 })
 export class CartConfirmComponent implements OnInit {
-    private command: Command;
+    public command: Command;
     private id: number;
 
     constructor(private route: ActivatedRoute, private commandService: CommandService) {}
