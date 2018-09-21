@@ -2,13 +2,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Command, CommandStatus } from './../shared/model/command.model';
 import { CommandItem } from './../shared/model/command-item.model';
-import { Customer } from './../shared/model/customer.model';
 import { CommandService } from '../entities/command/command.service';
 import { Principal } from '../core/auth/principal.service';
 import { Pattern } from 'app/shared/model/pattern.model';
 import * as moment from 'moment';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ItemEditComponent } from '../catalog/item-edit/item-edit.component';
 
 @Injectable({
     providedIn: 'root'
@@ -17,14 +15,12 @@ export class CartService {
     private cart: Command;
     private patternSelected: Pattern;
     private patternAddedToCart: Pattern;
-    private customer: Customer;
     private popupToClose: NgbModalRef;
 
     constructor(private commandService: CommandService, private principal: Principal, private router: Router) {
         this.cart = { carts: [] };
         this.patternAddedToCart = null;
         this.patternSelected = null;
-        this.customer = {};
         const oldCart = JSON.parse(localStorage.getItem('cart'));
         if (oldCart) {
             for (const commandItem of oldCart) {
@@ -80,10 +76,7 @@ export class CartService {
     order() {
         if (this.cart.carts.length !== 0) {
             if (this.principal.isAuthenticated()) {
-                this.principal.identity().then(user => {
-                    this.customer.id = user.id;
-                });
-                // this.cart.customer = this.customer;
+                this.principal.identity().then(user => (this.cart.user = user));
                 this.cart.date = moment();
                 this.cart.status = CommandStatus.IN_CART;
                 this.cart.total = this.total();
