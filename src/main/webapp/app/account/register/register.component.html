@@ -56,8 +56,8 @@
                         <small class="form-text text-danger" *ngIf="birth.errors.required">
                             Votre date de naissance est requise.
                         </small>
-                        <small class="form-text text-danger" *ngIf="birth.errors.maxlength"
-                        >
+                        <small class="form-text text-danger" *ngIf="birth.errors.max"
+                            >
                             Votre date de naissance ne peut pas dépasser la date d'aujourd'hui.
                         </small>
                     </div>
