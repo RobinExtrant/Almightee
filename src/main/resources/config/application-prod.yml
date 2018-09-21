@@ -34,9 +34,9 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/Almightee?useUnicode=true&characterEncoding=utf8&useSSL=false
+        url: jdbc:mysql://aamrr1a035fz1e.ckzbmqydtk9p.eu-central-1.rds.amazonaws.com:3306/Almightee?useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
-        password:
+        password: 123456789
         hikari:
             auto-commit: false
             data-source-properties:
@@ -56,8 +56,10 @@ spring:
             hibernate.generate_statistics: false
             hibernate.cache.region.factory_class: io.github.jhipster.config.jcache.BeanClassLoaderAwareJCacheRegionFactory
     data:
-        jest:
-            uri: http://localhost:9200
+        elasticsearch:
+            properties:
+                path:
+                    home: target/elasticsearch
     liquibase:
         contexts: prod
     mail:
