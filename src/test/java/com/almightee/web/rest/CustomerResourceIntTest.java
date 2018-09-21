@@ -1,3 +1,4 @@
+/*
 package com.almightee.web.rest;
 
 import com.almightee.AlmighteeApp;
@@ -34,11 +35,13 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+*/
 /**
  * Test class for the CustomerResource REST controller.
  *
  * @see CustomerResource
- */
+ *//*
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AlmighteeApp.class)
 public class CustomerResourceIntTest {
@@ -55,11 +58,13 @@ public class CustomerResourceIntTest {
     @Autowired
     private CustomerRepository customerRepository;
 
-    /**
-     * This repository is mocked in the com.almightee.repository.search test package.
-     *
-     * @see com.almightee.repository.search.CustomerSearchRepositoryMockConfiguration
-     */
+
+
+     This repository is mocked in the com.almightee.repository.search test package.
+
+     //@see com.almightee.repository.search.CustomerSearchRepositoryMockConfiguration
+
+
     @Autowired
     private CustomerSearchRepository mockCustomerSearchRepository;
 
@@ -90,12 +95,14 @@ public class CustomerResourceIntTest {
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
+
+/**
+     Create an entity for this test.
+
+     This is a static method, as tests for other entities might also need it,
+     if they test an entity which requires the current entity.
+
+
     public static Customer createEntity(EntityManager em) {
         Customer customer = new Customer()
             .username(DEFAULT_USERNAME)
@@ -286,7 +293,7 @@ public class CustomerResourceIntTest {
             .andExpect(jsonPath("$.[*].mail").value(hasItem(DEFAULT_MAIL.toString())))
             .andExpect(jsonPath("$.[*].password").value(hasItem(DEFAULT_PASSWORD.toString())));
     }
-
+CustomerSearchRepositoryMockConfiguration.java
     @Test
     @Transactional
     public void equalsVerifier() throws Exception {
@@ -302,3 +309,4 @@ public class CustomerResourceIntTest {
         assertThat(customer1).isNotEqualTo(customer2);
     }
 }
+*/
