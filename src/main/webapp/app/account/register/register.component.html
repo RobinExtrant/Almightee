@@ -1,26 +1,26 @@
 <div>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1>Registration</h1>
+            <h1>Inscription</h1>
 
             <div class="alert alert-success" *ngIf="success">
-                <strong>Registration saved!</strong> Please check your email for confirmation.
+                <strong>Inscription réussie !</strong> Veuillez vérifiez vos mails pour valider votre compte.
             </div>
 
             <div class="alert alert-danger" *ngIf="error">
-                <strong>Registration failed!</strong> Please try again later.
+                <strong>Inscription échouée !</strong> Veuillez réessayer.
             </div>
 
             <div class="alert alert-danger" *ngIf="errorUserExists">
-                <strong>Login name already registered!</strong> Please choose another one.
+                <strong>Nom d'utilisateur indisponible !</strong> Veuillez en choisir un autre.
             </div>
 
             <div class="alert alert-danger" *ngIf="errorEmailExists">
-                <strong>Email is already in use!</strong> Please choose another one.
+                <strong>Email déjà utilisée !</strong> Veuillez en choisir un autre.
             </div>
 
             <div class="alert alert-danger" *ngIf="doNotMatch">
-                The password and its confirmation do not match!
+                Le mot de passe et sa confirmation ne correspondent pas !
             </div>
         </div>
     </div>
@@ -28,97 +28,115 @@
         <div class="col-md-8">
             <form name="form" role="form" (ngSubmit)="register()" #registerForm="ngForm" *ngIf="!success">
                 <div class="form-group">
-                    <label class="form-control-label" for="login">Username</label>
-                    <input type="text" class="form-control" [(ngModel)]="registerAccount.login" id="login" name="login" #login="ngModel" placeholder="Your username"
+                    <label class="form-control-label" for="login">Nom d'utilisateur</label>
+                    <input type="text" class="form-control" [(ngModel)]="registerAccount.login" id="login" name="login" #login="ngModel" placeholder="Votre nom d'utilisateur"
                             required minlength="1" maxlength="50" pattern="^[_.@A-Za-z0-9-]*$">
                     <div *ngIf="login.dirty && login.invalid">
                         <small class="form-text text-danger" *ngIf="login.errors.required">
-                            Your username is required.
+                            Votre nom d'utilisateur est requis.
                         </small>
                         <small class="form-text text-danger" *ngIf="login.errors.minlength"
                                >
-                            Your username is required to be at least 1 character.
+                            Votre nom d'utilisateur doit faire au moins 1 caractère.
                         </small>
                         <small class="form-text text-danger" *ngIf="login.errors.maxlength"
                                >
-                            Your username cannot be longer than 50 characters.
+                            Votre nom d'utilisateur ne peut pas dépasser 50 caractères.
                         </small>
                         <small class="form-text text-danger" *ngIf="login.errors.pattern"
                               >
-                            Your username can only contain letters and digits.
+                            Votre nom d'utilisateur ne peut contenir que des lettres et des chiffres.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="birth">Date de naissance</label>
+                    <input type="date" class="form-control" [(ngModel)]="registerAccount.birth" #birth id="birth" name="birth" #birth="ngModel" max="2018-11-20">
+                    <div *ngIf="birth.dirty && birth.invalid">
+                        <small class="form-text text-danger" *ngIf="birth.errors.required">
+                            Votre date de naissance est requise.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="birth.errors.maxlength"
+                        >
+                            Votre date de naissance ne peut pas dépasser la date d'aujourd'hui.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" #email="ngModel" placeholder="Your email"
+                    <input type="email" class="form-control" id="email" name="email" #email="ngModel" placeholder="Votre email"
                             [(ngModel)]="registerAccount.email" minlength=5 maxlength=254 email required>
                     <div *ngIf="email.dirty && email.invalid">
                         <small class="form-text text-danger" *ngIf="email.errors.required"
                                >
-                            Your email is required.
+                            Votre email est requis.
                         </small>
                         <small class="form-text text-danger" *ngIf="email.errors.invalid"
                               >
-                            Your email is invalid.
+                            Votre email est invalide.
                         </small>
                         <small class="form-text text-danger" *ngIf="email.errors.minlength"
                               >
-                            Your email is required to be at least 5 characters.
+                            Votre email doit faire au moins 5 caractères.
                         </small>
                         <small class="form-text text-danger" *ngIf="email.errors.maxlength"
                               >
-                            Your email cannot be longer than 100 characters.
+                            Votre email ne peut pas dépasser 100 caractères.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="password">New password</label>
-                    <input type="password" class="form-control" id="password" name="password" #password="ngModel" placeholder="New password"
+                    <label class="form-control-label" for="tel">Téléphone</label>
+                    <input type="tel" class="form-control" [(ngModel)]="registerAccount.tel" id="tel" name="tel" #tel="ngModel" maxlength="10" pattern="[0-9]{10}">
+                    <div *ngIf="tel.dirty && tel.invalid">
+                        <small class="form-text text-danger" *ngIf="tel.errors.pattern"
+                        >
+                            Votre numéro de téléphone doit être de la forme "XXXXXXXXXX" et constitué de chiffres.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="password">Mot de passe</label>
+                    <input type="password" class="form-control" id="password" name="password" #password="ngModel" placeholder="Votre mot de passe"
                             [(ngModel)]="registerAccount.password" minlength=4 maxlength=50 required>
                     <div *ngIf="password.dirty && password.invalid">
                         <small class="form-text text-danger" *ngIf="password.errors.required"
                                >
-                            Your password is required.
+                            Votre mot de passe est requis.
                         </small>
                         <small class="form-text text-danger" *ngIf="password.errors.minlength"
                                >
-                            Your password is required to be at least 4 characters.
+                            Votre mot de passe doit faire au moins 4 caractères.
                         </small>
                         <small class="form-text text-danger" *ngIf="password.errors.maxlength"
                                >
-                            Your password cannot be longer than 50 characters.
+                            Votre mot de passe ne peut pas dépasser 50 caractères.
                         </small>
                     </div>
                     <jhi-password-strength-bar [passwordToCheck]="registerAccount.password"></jhi-password-strength-bar>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="confirmPassword">New password confirmation</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" #confirmPasswordInput="ngModel" placeholder="Confirm the new password"
+                    <label class="form-control-label" for="confirmPassword">Confirmation du mot de passe</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" #confirmPasswordInput="ngModel" placeholder="Confirmer le mot de passe"
                             [(ngModel)]="confirmPassword" minlength=4 maxlength=50 required>
                     <div *ngIf="confirmPasswordInput.dirty && confirmPasswordInput.invalid">
                         <small class="form-text text-danger" *ngIf="confirmPasswordInput.errors.required"
                               >
-                            Your confirmation password is required.
+                            Votre confirmation de mot de passe est requise.
                         </small>
                         <small class="form-text text-danger" *ngIf="confirmPasswordInput.errors.minlength"
                              >
-                            Your confirmation password is required to be at least 4 characters.
+                            Votre confirmation de mot de passe doit faire au moins 4 caractères.
                         </small>
                         <small class="form-text text-danger" *ngIf="confirmPasswordInput.errors.maxlength"
                               >
-                            Your confirmation password cannot be longer than 50 characters.
+                            Votre confirmation de mot de passe ne peut pas dépasser 50 caractères.
                         </small>
                     </div>
                 </div>
-
-                <button type="submit" [disabled]="registerForm.form.invalid" class="btn btn-primary">Register</button>
+                <button type="submit" [disabled]="registerForm.form.invalid" class="btn btn-primary">S'inscrire</button>
             </form>
             <p></p>
-            <div class="alert alert-warning">
-                <span>If you want to </span>
-                <a class="alert-link" (click)="openLogin()">sign in</a><span>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>
-            </div>
         </div>
     </div>
 </div>
