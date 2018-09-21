@@ -1,0 +1,19 @@
+<div>
+    <span>Couleur: </span>
+    <select [(ngModel)]="commandItem.color" (ngModelChange)="onChange($event)" name="colorItem">
+        <option [ngValue]="colors.values[colorKey]" *ngFor="let colorKey of colors.keys">{{colorKey}}</option>
+    </select>
+</div>
+<div>
+    <span>Taille: </span>
+    <select [(ngModel)]="commandItem.size" (ngModelChange)="onChange($event)" name="sizeItem">
+        <option [ngValue]="sizes.values[sizeKey]" *ngFor="let sizeKey of sizes.keys">{{sizeKey}}</option>
+    </select>
+</div>
+<div>
+    <span>Quantité: </span>
+    <input type="number" [(ngModel)]="commandItem.quantity" name="quantity">
+</div>
+<div>
+    <input type="button" (click)="addToCart()" value="Ajouter au panier">
+</div>

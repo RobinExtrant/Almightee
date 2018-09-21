@@ -1,0 +1,22 @@
+<h3>
+  Votre panier :
+</h3>
+<div *ngIf="items && items.length > 0; else noitem">
+    <ul>
+      <li *ngFor="let item of items">
+          <jhi-cart-item [item]="item"></jhi-cart-item>
+      </li>
+    </ul>
+    <div>
+        <button (click)="clear()" class="btn btn-danger">Vider le panier</button>
+        <button *ngIf="this.principal.isAuthenticated(); else notlogin" (click)="order()" class="btn btn-primary">Commander</button>
+        <ng-template #notlogin>
+            <button disabled="true" class="btn btn-dark">Connectez-vous</button>
+        </ng-template>
+    </div>
+</div>
+<ng-template #noitem>
+    <div>
+        Votre panier est vide.
+    </div>
+</ng-template>
