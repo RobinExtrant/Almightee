@@ -5,7 +5,7 @@ import { CatalogComponent } from 'app/catalog/catalog.component';
 @Component({
     selector: 'jhi-pattern-item',
     templateUrl: './pattern-item.component.html',
-    styles: []
+    styleUrls: ['./../catalog.css']
 })
 export class PatternItemComponent implements OnInit {
     @Input() private pattern: Pattern;

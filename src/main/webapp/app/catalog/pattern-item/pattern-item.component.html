@@ -1,5 +1,11 @@
-<div class="productbox" align="center" ng-app>
-  <img src="{{pattern.imageURL}}" class="img-responsive" width="30%">
-  <div class="productname">{{pattern.name}}   -   {{pattern.author}}</div>
-  <div class="productprice">Prix:  {{pattern.price}}€ <input type="button" (click)="catalogComponent.choosePattern(pattern)" value="Choisir"></div>
+<div align="center" class="patternRepresentation" ng-app>
+  <img src="{{pattern.imageURL}}" class="img-responsive" class="patternImg">
+  <div class="patternInfos">
+    <div class="backgroundInfos"></div>
+    <div class="patternName">{{pattern.name}}   -   {{pattern.author}}</div>
+    <div class="patternPrice">
+      Prix:  {{pattern.price}}€
+      <input type="button" (click)="catalogComponent.choosePattern(pattern)" value="Choisir">
+    </div>
+  </div>
 </div>
