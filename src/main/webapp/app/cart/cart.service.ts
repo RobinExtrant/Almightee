@@ -83,7 +83,7 @@ export class CartService {
                 this.principal.identity().then(user => {
                     this.customer.id = user.id;
                 });
-                this.cart.customer = this.customer;
+                // this.cart.customer = this.customer;
                 this.cart.date = moment();
                 this.cart.status = CommandStatus.IN_CART;
                 this.cart.total = this.total();
