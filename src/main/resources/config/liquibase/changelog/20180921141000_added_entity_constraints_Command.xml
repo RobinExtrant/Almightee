@@ -6,8 +6,8 @@
     <!--
         Added the constraints for entity Command.
     -->
-    <changeSet id="20180913124639-2" author="jhipster">
-        
+    <changeSet id="20180921141000-1" author="jhipster">
+
         <addForeignKeyConstraint baseColumnNames="customer_id"
                                  baseTableName="command"
                                  constraintName="fk_command_customer_id"
