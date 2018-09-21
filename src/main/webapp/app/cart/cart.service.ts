@@ -71,9 +71,7 @@ export class CartService {
         if (this.cart.carts.length !== 0) {
             if (this.principal.isAuthenticated()) {
                 this.principal.identity().then(user => {
-                    console.log('id : ', user.id);
                     this.customer.id = user.id;
-                    console.log('Customer : ', this.customer.id);
                 });
                 this.cart.customer = this.customer;
                 this.cart.date = moment();
