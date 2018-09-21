@@ -37,6 +37,8 @@ public class CustomerResource {
 
     private final CustomerSearchRepository customerSearchRepository;
 
+
+
     public CustomerResource(CustomerRepository customerRepository, CustomerSearchRepository customerSearchRepository) {
         this.customerRepository = customerRepository;
         this.customerSearchRepository = customerSearchRepository;
