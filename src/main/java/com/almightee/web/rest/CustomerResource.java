@@ -1,3 +1,4 @@
+/*
 package com.almightee.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
@@ -22,9 +23,8 @@ import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
-/**
- * REST controller for managing Customer.
- */
+
+//REST controller for managing Customer.
 @RestController
 @RequestMapping("/api")
 public class CustomerResource {
@@ -44,13 +44,14 @@ public class CustomerResource {
         this.customerSearchRepository = customerSearchRepository;
     }
 
-    /**
+*
      * POST  /customers : Create a new customer.
      *
      * @param customer the customer to create
      * @return the ResponseEntity with status 201 (Created) and with body the new customer, or with status 400 (Bad Request) if the customer has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+
+
     @PostMapping("/customers")
     @Timed
     public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) throws URISyntaxException {
@@ -65,7 +66,7 @@ public class CustomerResource {
             .body(result);
     }
 
-    /**
+*
      * PUT  /customers : Updates an existing customer.
      *
      * @param customer the customer to update
@@ -73,7 +74,8 @@ public class CustomerResource {
      * or with status 400 (Bad Request) if the customer is not valid,
      * or with status 500 (Internal Server Error) if the customer couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+
+
     @PutMapping("/customers")
     @Timed
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) throws URISyntaxException {
@@ -88,11 +90,12 @@ public class CustomerResource {
             .body(result);
     }
 
-    /**
+*
      * GET  /customers : get all the customers.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of customers in body
-     */
+
+
     @GetMapping("/customers")
     @Timed
     public List<Customer> getAllCustomers() {
@@ -100,12 +103,13 @@ public class CustomerResource {
         return customerRepository.findAll();
     }
 
-    /**
+*
      * GET  /customers/:id : get the "id" customer.
      *
      * @param id the id of the customer to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the customer, or with status 404 (Not Found)
-     */
+
+
     @GetMapping("/customers/{id}")
     @Timed
     public ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
@@ -114,12 +118,13 @@ public class CustomerResource {
         return ResponseUtil.wrapOrNotFound(customer);
     }
 
-    /**
+*
      * DELETE  /customers/:id : delete the "id" customer.
      *
      * @param id the id of the customer to delete
      * @return the ResponseEntity with status 200 (OK)
-     */
+
+
     @DeleteMapping("/customers/{id}")
     @Timed
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
@@ -130,13 +135,14 @@ public class CustomerResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
-    /**
+*
      * SEARCH  /_search/customers?query=:query : search for the customer corresponding
      * to the query.
      *
      * @param query the query of the customer search
      * @return the result of the search
-     */
+
+
     @GetMapping("/_search/customers")
     @Timed
     public List<Customer> searchCustomers(@RequestParam String query) {
@@ -147,3 +153,4 @@ public class CustomerResource {
     }
 
 }
+*/

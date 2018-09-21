@@ -1,3 +1,4 @@
+<!--
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
@@ -14,9 +15,9 @@
     <property name="floatType" value="float4" dbms="postgresql, h2"/>
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
-    <!--
+    &lt;!&ndash;
         Added the entity Customer.
-    -->
+    &ndash;&gt;
     <changeSet id="20180913124640-1" author="jhipster">
         <createTable tableName="customer">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
@@ -34,9 +35,10 @@
                 <constraints nullable="true" />
             </column>
 
-            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+            &lt;!&ndash; jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove&ndash;&gt;
         </createTable>
         
     </changeSet>
-    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+    &lt;!&ndash; jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove&ndash;&gt;
 </databaseChangeLog>
+-->
