@@ -1,3 +1,8 @@
 <div *ngIf="item">
-    <span>Item {{item.pattern.name}} x {{item.quantity}}, {{item.price}}€, Couleur {{item.color}}, Taille : {{item.size}}</span>
+    <span>
+        Item {{item.pattern.name}} x 
+        <input type="number" [(ngModel)]="item.quantity" (ngModelChange)="quantityChange($event)" name="quantity">
+        , {{item.price}}€, Couleur {{item.color}}, Taille : {{item.size}}
+        <button (click)="cartService.remove(item)" class="btn btn-danger">Retirer article</button>
+    </span>
 </div>

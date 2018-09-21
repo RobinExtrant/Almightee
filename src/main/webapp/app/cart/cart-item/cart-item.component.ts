@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommandItem } from 'app/shared/model/command-item.model';
+import { CartService } from 'app/cart/cart.service';
 
 @Component({
     selector: 'jhi-cart-item',
@@ -9,5 +10,9 @@ import { CommandItem } from 'app/shared/model/command-item.model';
 export class CartItemComponent {
     @Input() public item: CommandItem;
 
-    constructor() {}
+    constructor(private cartService: CartService) {}
+
+    quantityChange(newValue) {
+        this.cartService.save();
+    }
 }
