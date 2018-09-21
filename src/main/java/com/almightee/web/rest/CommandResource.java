@@ -1,9 +1,5 @@
 package com.almightee.web.rest;
 
-import com.almightee.domain.Command_;
-import com.almightee.domain.Customer;
-import com.almightee.service.CommandService;
-import com.almightee.service.dto.UserDTO;
 import com.codahale.metrics.annotation.Timed;
 import com.almightee.domain.Command;
 import com.almightee.repository.CommandRepository;
@@ -13,7 +9,6 @@ import com.almightee.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,10 +33,13 @@ public class CommandResource {
 
     private static final String ENTITY_NAME = "command";
 
-    @Autowired
-    private CommandService commandService;
+    private final CommandRepository commandRepository;
 
-    public CommandResource() {
+    private final CommandSearchRepository commandSearchRepository;
+
+    public CommandResource(CommandRepository commandRepository, CommandSearchRepository commandSearchRepository) {
+        this.commandRepository = commandRepository;
+        this.commandSearchRepository = commandSearchRepository;
     }
 
     /**
@@ -58,7 +56,8 @@ public class CommandResource {
         if (command.getId() != null) {
             throw new BadRequestAlertException("A new command cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Command result = commandService.saveCommand(command);
+        Command result = commandRepository.save(command);
+        commandSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/commands/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -80,7 +79,8 @@ public class CommandResource {
         if (command.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Command result = commandService.saveCommand(command);
+        Command result = commandRepository.save(command);
+        commandSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, command.getId().toString()))
             .body(result);
@@ -93,37 +93,39 @@ public class CommandResource {
      */
     @GetMapping("/commands")
     @Timed
-    public List<Command> getAllCommands(@SessionAttribute("customer") Customer customer) throws URISyntaxException {
-        log.debug("REST request to get all Commands of the connected customer");
-        return commandService.retrieveAllCommands(customer.getId());
+    public List<Command> getAllCommands() {
+        log.debug("REST request to get all Commands");
+        return commandRepository.findAll();
     }
 
     /**
      * GET  /commands/:id : get the "id" command.
      *
-     * @param idCommand the id of the command to retrieve
+     * @param id the id of the command to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the command, or with status 404 (Not Found)
      */
-    @GetMapping("/commands/{idCommand}")
+    @GetMapping("/commands/{id}")
     @Timed
-    public ResponseEntity<Command> getCommand(@SessionAttribute("customer") Customer customer, @PathVariable Long idCommand) {
-        log.debug("REST request to get Command : {}", idCommand);
-        Optional<Command> command = commandService.getCommand(customer.getId(), idCommand);
+    public ResponseEntity<Command> getCommand(@PathVariable Long id) {
+        log.debug("REST request to get Command : {}", id);
+        Optional<Command> command = commandRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(command);
     }
 
     /**
      * DELETE  /commands/:id : delete the "id" command.
      *
-     * @param idCommand the id of the command to delete
+     * @param id the id of the command to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @DeleteMapping("/commands/{idCommand}")
+    @DeleteMapping("/commands/{id}")
     @Timed
-    public ResponseEntity<Void> deleteCommand(@SessionAttribute("customer") Customer customer, @PathVariable Long idCommand) {
-        log.debug("REST request to delete Command : {}", idCommand);
-        commandService.deleteCommand(customer.getId(), idCommand);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, idCommand.toString())).build();
+    public ResponseEntity<Void> deleteCommand(@PathVariable Long id) {
+        log.debug("REST request to delete Command : {}", id);
+
+        commandRepository.deleteById(id);
+        commandSearchRepository.deleteById(id);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
     /**
@@ -133,13 +135,13 @@ public class CommandResource {
      * @param query the query of the command search
      * @return the result of the search
      */
-//    @GetMapping("/_search/commands")
-//    @Timed
-//    public List<Command> searchCommands(@RequestParam String query) {
-//        log.debug("REST request to search Commands for query {}", query);
-//        return StreamSupport
-//            .stream(commandSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-//            .collect(Collectors.toList());
-//    }
+    @GetMapping("/_search/commands")
+    @Timed
+    public List<Command> searchCommands(@RequestParam String query) {
+        log.debug("REST request to search Commands for query {}", query);
+        return StreamSupport
+            .stream(commandSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .collect(Collectors.toList());
+    }
 
 }

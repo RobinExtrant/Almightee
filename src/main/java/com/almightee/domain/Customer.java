@@ -1,3 +1,4 @@
+/*
 package com.almightee.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,9 +13,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
-/**
- * A Customer.
- */
+
+ //A Customer.
+
 @Entity
 @Table(name = "customer")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -144,3 +145,4 @@ public class Customer implements Serializable {
             "}";
     }
 }
+*/

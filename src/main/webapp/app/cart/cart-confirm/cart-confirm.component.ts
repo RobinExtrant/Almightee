@@ -9,7 +9,7 @@ import { CommandService } from '../../entities/command/command.service';
     styles: []
 })
 export class CartConfirmComponent implements OnInit {
-    private command: Command;
+    public command: Command;
     private id: number;
 
     constructor(private route: ActivatedRoute, private commandService: CommandService) {}
@@ -18,8 +18,8 @@ export class CartConfirmComponent implements OnInit {
         this.route.params.subscribe((params: Params) => {
             this.id = params['id'];
         });
-        this.commandService.find(this.id).subscribe(res => (this.command = res));
-
-        console.log(this.command.status);
+        this.commandService.find(this.id).subscribe(res => {
+            this.command = res.body;
+        });
     }
 }
