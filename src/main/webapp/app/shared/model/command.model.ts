@@ -1,6 +1,6 @@
 import { Moment } from 'moment';
-import { ICommandItem } from 'app/shared/model//command-item.model';
-import { ICustomer } from 'app/shared/model//customer.model';
+import { ICommandItem } from 'app/shared/model/command-item.model';
+import { ICustomer } from 'app/shared/model/customer.model';
 
 export const enum CommandStatus {
     IN_CART = 'IN_CART',

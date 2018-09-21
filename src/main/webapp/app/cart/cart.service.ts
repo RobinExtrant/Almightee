@@ -17,12 +17,14 @@ export class CartService {
     private cart: Command;
     private patternSelected: Pattern;
     private patternAddedToCart: Pattern;
+    private customer: Customer;
     private popupToClose: NgbModalRef;
 
     constructor(private commandService: CommandService, private principal: Principal, private router: Router) {
         this.cart = { carts: [] };
         this.patternAddedToCart = null;
         this.patternSelected = null;
+        this.customer = {};
         const oldCart = JSON.parse(localStorage.getItem('cart'));
         if (oldCart) {
             for (const commandItem of oldCart) {
@@ -79,14 +81,13 @@ export class CartService {
         if (this.cart.carts.length !== 0) {
             if (this.principal.isAuthenticated()) {
                 this.principal.identity().then(user => {
-                    this.cart.customer = new Customer(user.id);
+                    this.customer.id = user.id;
                 });
+                this.cart.customer = this.customer;
                 this.cart.date = moment();
                 this.cart.status = CommandStatus.IN_CART;
                 this.cart.total = this.total();
                 this.commandService.create(this.cart).subscribe(commandRes => this.router.navigate(['/cart', commandRes.body.id]));
-            } else {
-                console.log('Login nécessaire');
             }
         }
     }
