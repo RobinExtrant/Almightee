@@ -9,6 +9,8 @@ import { Pattern } from 'app/shared/model/pattern.model';
 import * as moment from 'moment';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ItemEditComponent } from '../catalog/item-edit/item-edit.component';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +21,8 @@ export class CartService {
     private patternAddedToCart: Pattern;
     private customer: Customer;
     private popupToClose: NgbModalRef;
+
+    private _success = new Subject();
 
     constructor(private commandService: CommandService, private principal: Principal, private router: Router) {
         this.cart = { carts: [] };
@@ -34,6 +38,8 @@ export class CartService {
             }
         }
         this.updateTotalPrice();
+
+        this._success.pipe(debounceTime(5000)).subscribe(() => (this.patternAddedToCart = null));
     }
 
     all(): CommandItem[] {
@@ -58,6 +64,7 @@ export class CartService {
         if (this.popupToClose) {
             this.popupToClose.close();
         }
+        this._success.next();
         return true;
     }
 

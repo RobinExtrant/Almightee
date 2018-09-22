@@ -6,9 +6,10 @@ import { CatalogComponent } from './catalog.component';
 import { ItemEditComponent } from './item-edit/item-edit.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-    imports: [FormsModule, CommonModule, RouterModule.forChild([CATALOG_ROUTE]), MatGridListModule],
+    imports: [FormsModule, CommonModule, RouterModule.forChild([CATALOG_ROUTE]), MatGridListModule, NgbModule],
     declarations: [CatalogComponent, ItemEditComponent],
     entryComponents: [ItemEditComponent]
 })

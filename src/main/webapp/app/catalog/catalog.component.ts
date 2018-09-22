@@ -23,16 +23,6 @@ export class CatalogComponent implements OnInit {
     constructor(private modalService: NgbModal, private patternService: PatternService, private cartService: CartService) {}
 
     ngOnInit() {
-        /*this.patterns = [
-      {name: 'Stylo', author: 'Alfred', imageURL: 'fakeUrl1', price: 30},
-      {name: 'Vie', author: 'Vincent', imageURL: 'badUrl1', price: 100000},
-      {name: 'Ordi', author: 'Alfred', imageURL: 'fakeUrl2', price: 500},
-      {name: 'Prise', author: 'Mathieu', imageURL: 'badUrl1', price: 0.23}
-      ];
-
-        this.patternService.query().subscribe(patternsRes => {
-            this.patterns = patternsRes.body;
-        });*/
         this.currentPage = 1;
         this.itemsPerPage = 6;
         this.load(this.currentPage - 1, this.itemsPerPage);
