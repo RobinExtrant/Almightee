@@ -1,0 +1,14 @@
+relationship ManyToOne {
+Command{user} to User
+}
+entity Command {
+	id Long,
+	date LocalDate,
+    status CommandStatus,
+    total Long
+}
+
+
+enum CommandStatus {
+	IN_CART, IN_PREPARATION, SHIPPED, DELIVERED, CANCELED
+}

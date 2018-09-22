@@ -20,7 +20,7 @@ export class CatalogComponent implements OnInit {
     itemsPerPage: number;
     err: any;
 
-    constructor(private modalService: NgbModal, private patternService: PatternService, private cartService: CartService) {}
+    constructor(private modalService: NgbModal, private patternService: PatternService, public cartService: CartService) {}
 
     ngOnInit() {
         this.currentPage = 1;
