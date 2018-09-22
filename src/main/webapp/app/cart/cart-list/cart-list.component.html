@@ -8,6 +8,11 @@
       </li>
     </ul>
     <div>
+        <br>
+        Prix total à payer : {{this.cartService.total()}}€
+        <br><br>
+    </div>
+    <div>
         <button (click)="clear()" class="btn btn-danger">Vider le panier</button>
         <button *ngIf="this.principal.isAuthenticated(); else notlogin" (click)="order()" class="btn btn-primary">Commander</button>
         <ng-template #notlogin>

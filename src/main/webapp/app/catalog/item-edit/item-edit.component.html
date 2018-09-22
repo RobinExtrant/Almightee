@@ -12,7 +12,7 @@
 </div>
 <div>
     <span>Quantité: </span>
-    <input type="number" [(ngModel)]="commandItem.quantity" name="quantity">
+    <input type="number" min="1" [(ngModel)]="commandItem.quantity" name="quantityItem" (focusout)="quantityFocusedOut()">
 </div>
 <div>
     <input type="button" (click)="addToCart()" value="Ajouter au panier">
