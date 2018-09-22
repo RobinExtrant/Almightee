@@ -13,6 +13,7 @@ export class CartItemComponent {
     constructor(private cartService: CartService) {}
 
     quantityChange(newValue) {
+        this.item.updatePrice();
         this.cartService.save();
     }
 }
