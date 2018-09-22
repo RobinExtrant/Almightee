@@ -7,6 +7,9 @@ import { Principal } from '../core/auth/principal.service';
 import { Pattern } from 'app/shared/model/pattern.model';
 import * as moment from 'moment';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ItemEditComponent } from '../catalog/item-edit/item-edit.component';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +19,8 @@ export class CartService {
     private patternSelected: Pattern;
     private patternAddedToCart: Pattern;
     private popupToClose: NgbModalRef;
+
+    private _success = new Subject();
 
     constructor(private commandService: CommandService, private principal: Principal, private router: Router) {
         this.cart = { carts: [] };
@@ -29,6 +34,9 @@ export class CartService {
                 this.cart.carts.push(newCommandItem);
             }
         }
+        this.updateTotalPrice();
+
+        this._success.pipe(debounceTime(5000)).subscribe(() => (this.patternAddedToCart = null));
     }
 
     all(): CommandItem[] {
@@ -45,6 +53,7 @@ export class CartService {
         } else {
             this.cart.carts.push(commandItem);
         }
+        this.updateTotalPrice();
         this.save();
         this.patternAddedToCart = this.patternSelected;
         this.patternSelected = null;
@@ -52,6 +61,7 @@ export class CartService {
         if (this.popupToClose) {
             this.popupToClose.close();
         }
+        this._success.next();
         return true;
     }
 
@@ -59,9 +69,13 @@ export class CartService {
         const commandItemIndex: number = this.cart.carts.findIndex(
             x => x.color === commandItem.color && x.size === commandItem.size && x.pattern.id === commandItem.pattern.id
         );
-        const itemRemoved = this.cart.carts.splice(commandItemIndex, 1).length === 1;
-        this.save();
-        return itemRemoved;
+        if (commandItemIndex >= 0) {
+            const itemRemoved = this.cart.carts.splice(commandItemIndex, 1).length === 1;
+            this.updateTotalPrice();
+            this.save();
+            return itemRemoved;
+        }
+        return false;
     }
 
     save() {
@@ -71,6 +85,7 @@ export class CartService {
     clear() {
         localStorage.clear();
         this.cart.carts.length = 0;
+        this.updateTotalPrice();
     }
 
     order() {
@@ -79,18 +94,21 @@ export class CartService {
                 this.principal.identity().then(user => (this.cart.user = user));
                 this.cart.date = moment();
                 this.cart.status = CommandStatus.IN_CART;
-                this.cart.total = this.total();
                 this.commandService.create(this.cart).subscribe(commandRes => this.router.navigate(['/cart', commandRes.body.id]));
             }
         }
     }
 
-    total(): number {
+    updateTotalPrice() {
         let total = 0;
         for (const item of this.cart.carts) {
             total += item.price;
         }
-        return total;
+        this.cart.total = total;
+    }
+
+    total(): number {
+        return this.cart.total;
     }
 
     setPatternSelected(patternSelected: Pattern) {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Directive, ElementRef, OnInit, Renderer } from '@angular/core';
 import { CommandItem } from 'app/shared/model/command-item.model';
 import { CartService } from 'app/cart/cart.service';
 
@@ -9,10 +9,29 @@ import { CartService } from 'app/cart/cart.service';
 })
 export class CartItemComponent {
     @Input() public item: CommandItem;
+    private alreadyDeleted: boolean;
 
-    constructor(private cartService: CartService) {}
+    constructor(private cartService: CartService) {
+        this.alreadyDeleted = false;
+    }
 
     quantityChange(newValue) {
-        this.cartService.save();
+        if (!this.alreadyDeleted) {
+            if (this.item.quantity === 0) {
+                this.cartService.remove(this.item);
+                this.alreadyDeleted = true;
+            } else {
+                this.item.updatePrice();
+            }
+            this.cartService.updateTotalPrice();
+            this.cartService.save();
+        }
+    }
+
+    quantityFocusedOut() {
+        if (this.item.quantity == null || this.item.quantity <= 0) {
+            this.item.quantity = 1;
+        }
+        this.quantityChange(1);
     }
 }

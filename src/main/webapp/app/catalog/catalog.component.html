@@ -12,9 +12,6 @@
   <ng-template #nopattern>Il n'y a aucun motif !</ng-template>
 </div>
 <ng-template #patternSelected><jhi-item-edit *ngIf="cartService.hasPatternSelected()"></jhi-item-edit></ng-template>
-<div *ngIf="cartService.hasPatternAddedToCart()" style="text-align: center; border-radius: 15px; background-color: #EE3333;">
-  <span>
-    Votre article avec le motif {{cartService.getPatternAddedToCart().name}} a bien été ajouté à votre panier
-  </span>
-  <button (click)="cartService.resetPatternAddedToCart()" class="btn btn-danger">X</button>
-</div>
+<ngb-alert *ngIf="cartService.hasPatternAddedToCart()" type="success" (close)="cartService.resetPatternAddedToCart()">
+    Votre article avec le motif <strong>{{cartService.getPatternAddedToCart().name}}</strong> a bien été ajouté à votre panier.
+</ngb-alert>

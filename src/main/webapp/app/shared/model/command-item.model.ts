@@ -28,6 +28,8 @@ export interface ICommandItem {
     command?: ICommand;
 
     setQuantity(newQuantity: number): void;
+
+    updatePrice(): void;
 }
 
 export class CommandItem implements ICommandItem {
