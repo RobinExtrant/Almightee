@@ -1,20 +1,16 @@
-
-  <mat-grid-list cols="3" rowHeight="180px" *ngIf="patterns && patterns.length > 0; else nopattern">
+<div class="catalogue">
+  <mat-grid-list cols="4" rowHeight="180px" gutterSize="15px" *ngIf="patterns && patterns.length > 0; else nopattern">
     <mat-grid-tile *ngFor="let pattern of patterns">
-      <div class="productbox" align="center" ng-app>
-        <img src="{{pattern.imageURL}}" class="img-responsive" width="30%">
-        <div class="productname">{{pattern.name}}   -   {{pattern.author}}</div>
-        <div class="productprice">Prix:  {{pattern.price}}€ <input type="button" (click)="choosePattern(pattern)" value="Choisir"></div>
-      </div>
+      <jhi-pattern-item [pattern]="pattern" [catalogComponent]="this"></jhi-pattern-item>
     </mat-grid-tile>
   </mat-grid-list>
-  <div align="center" *ngIf="patterns && patterns.length > 0;">
-    <input *ngIf="currentPage > 1" style="display: inline-block" type="button" (click)="previous()" value="<">
-    <p style="display: inline-block">{{currentPage}}</p>
-    <input *ngIf="currentPage < totalPages" style="display: inline-block" type="button" (click)="next()" value=">">
+  <div class="pagination" *ngIf="patterns && patterns.length > 0;">
+    <input *ngIf="currentPage > 1" type="button" (click)="previous()" value="<">
+    <span>{{currentPage}}/{{totalPages}}</span>
+    <input *ngIf="currentPage < totalPages" type="button" (click)="next()" value=">">
   </div>
   <ng-template #nopattern>Il n'y a aucun motif !</ng-template>
-  </div>
+</div>
 <ng-template #patternSelected><jhi-item-edit *ngIf="cartService.hasPatternSelected()"></jhi-item-edit></ng-template>
 <ngb-alert *ngIf="cartService.hasPatternAddedToCart()" type="success" (close)="cartService.resetPatternAddedToCart()">
     Votre article avec le motif <strong>{{cartService.getPatternAddedToCart().name}}</strong> a bien été ajouté à votre panier.

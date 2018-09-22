@@ -45,9 +45,9 @@ public class Command implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<CommandItem> carts = new HashSet<>();
 
-    @ManyToOne
+   /* @ManyToOne
     @JsonIgnoreProperties("commands")
-    private Customer customer;
+    private Customer customer;*/
 
     @ManyToOne
     @JsonIgnoreProperties("")
@@ -125,7 +125,7 @@ public class Command implements Serializable {
     public void setCarts(Set<CommandItem> commandItems) {
         this.carts = commandItems;
     }
-
+/*
     public Customer getCustomer() {
         return customer;
     }
@@ -135,9 +135,11 @@ public class Command implements Serializable {
         return this;
     }
 
+
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+*/
 
     public User getUser() {
         return user;

@@ -10,7 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
     selector: 'jhi-catalog',
     templateUrl: './catalog.component.html',
-    styles: []
+    styleUrls: ['catalog.css']
 })
 export class CatalogComponent implements OnInit {
     currentPage: number;
@@ -24,7 +24,7 @@ export class CatalogComponent implements OnInit {
 
     ngOnInit() {
         this.currentPage = 1;
-        this.itemsPerPage = 6;
+        this.itemsPerPage = 8;
         this.load(this.currentPage - 1, this.itemsPerPage);
     }
 
@@ -55,13 +55,13 @@ export class CatalogComponent implements OnInit {
 
     choosePattern(patternSelected: Pattern) {
         this.cartService.setPatternSelected(patternSelected);
-        const modalRef = this.modalService.open(ItemEditComponent);
+        const modalRef = this.modalService.open(ItemEditComponent, { size: 'lg', windowClass: 'modal-adaptive-s1' });
         this.cartService.setPopupToClose(modalRef);
     }
 
     private paginatePatterns(data: IPattern[], headers: HttpHeaders) {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-        this.totalPages = this.totalItems / this.itemsPerPage;
+        this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
         this.patterns = data;
     }
 }
