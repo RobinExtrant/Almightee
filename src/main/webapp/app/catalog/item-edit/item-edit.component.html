@@ -6,19 +6,19 @@
         <button (click)="cartService.closePopup();">X</button>
         <div>
             <span>Couleur:<br/>
-            <select [(ngModel)]="commandItem.color" (ngModelChange)="onChange($event)" name="colorItem">
+            <select [(ngModel)]="commandItem.color" name="colorItem">
                 <option [ngValue]="colors.values[colorKey]" *ngFor="let colorKey of colors.keys">{{colorKey}}</option>
             </select></span>
         </div>
         <div>
             <span>Taille:<br/>
-            <select [(ngModel)]="commandItem.size" (ngModelChange)="onChange($event)" name="sizeItem">
+            <select [(ngModel)]="commandItem.size" name="sizeItem">
                 <option [ngValue]="sizes.values[sizeKey]" *ngFor="let sizeKey of sizes.keys">{{sizeKey}}</option>
             </select></span>
         </div>
         <div>
             <span>Quantité:<br/>
-            <input type="number" min=0 [(ngModel)]="commandItem.quantity" name="quantity"></span>
+            <input type="number" min=1 [(ngModel)]="commandItem.quantity" name="quantityItem" (focusout)="quantityFocusedOut()"></span>
         </div>
         <div>
             <span><input type="button" (click)="addToCart()" value="Ajouter au panier"></span>

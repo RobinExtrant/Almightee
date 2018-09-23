@@ -11,9 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ItemEditComponent implements OnInit {
     commandItem: CommandItem;
     colors = { values: Color, keys: Object.keys(Color) };
-    colorItem: Color;
     sizes = { values: Size, keys: Object.keys(Size) };
-    quantity: string;
 
     constructor(private modalService: NgbModal, private cartService: CartService) {}
 
@@ -22,16 +20,18 @@ export class ItemEditComponent implements OnInit {
         this.commandItem.color = Color.WHITE;
         this.commandItem.size = Size.L;
         this.commandItem.quantity = 1;
+        this.commandItem.pattern = this.cartService.getPatternSelected();
+        this.commandItem.updatePrice();
     }
 
     addToCart(): void {
-        this.commandItem.pattern = this.cartService.getPatternSelected();
         this.commandItem.updatePrice();
-        console.log('commandItem : ' + this.commandItem);
         this.cartService.add(this.commandItem);
     }
 
-    onChange(newValue) {
-        console.log(newValue);
+    quantityFocusedOut() {
+        if (this.commandItem.quantity == null || this.commandItem.quantity <= 0) {
+            this.commandItem.setQuantity(1);
+        }
     }
 }
