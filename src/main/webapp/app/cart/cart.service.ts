@@ -138,4 +138,8 @@ export class CartService {
     getPatternAddedToCart(): Pattern {
         return this.patternAddedToCart;
     }
+
+    closePopup() {
+        this.popupToClose.close();
+    }
 }
