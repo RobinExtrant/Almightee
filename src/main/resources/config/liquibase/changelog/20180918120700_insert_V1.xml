@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!-- Added insert in CUSTOMER tabl -->
+    <!-- id star in 7-->
+
+
+    <changeSet id="20180918121900-1" author="HamidLAFREDI">
+        <insert tableName="CUSTOMER">
+            <column name="USERNAME" value="LAFREDI 4"/>
+            <column name="MAIL" value="test4@gmail.com"/>
+            <column name="JHI_PASSWORD" value="00000000"/>
+        </insert>
+        <insert tableName="CUSTOMER">
+            <column name="USERNAME" value="LAFREDI 5"/>
+            <column name="MAIL" value="test5@gmail.com"/>
+            <column name="JHI_PASSWORD" value="00000000"/>
+        </insert>
+        <insert tableName="CUSTOMER">
+            <column name="USERNAME" value="LAFREDI 5"/>
+            <column name="MAIL" value="test5@gmail.com"/>
+            <column name="JHI_PASSWORD" value="00000000"/>
+        </insert>
+    </changeSet>
+
+    <!-- Added insert in COMMAND -->
+    <!-- id star in 4-->
+
+    <changeSet id="20180918145100-1" author="HamidLAFREDI">
+        <insert tableName="COMMAND">
+            <column name="JHI_DATE" value="2018-09-13"/>
+            <column name="STATUS" value="IN_PREPARATION"/>
+            <column name="TOTAL" value="13"/>
+            <column name="CUSTOMER_ID" value="3"/>
+        </insert>
+        <insert tableName="COMMAND">
+            <column name="JHI_DATE" value="2018-09-14"/>
+            <column name="STATUS" value="SHIPPED"/>
+            <column name="TOTAL" value="17"/>
+            <column name="CUSTOMER_ID" value="5"/>
+        </insert>
+        <insert tableName="COMMAND">
+            <column name="JHI_DATE" value="2018-09-12"/>
+            <column name="STATUS" value="DELIVERED"/>
+            <column name="TOTAL" value="16"/>
+            <column name="CUSTOMER_ID" value="4"/>
+        </insert>
+    </changeSet>
+
+    <!-- Added insert in PATTERN -->
+    <!-- id star in 4-->
+
+    <changeSet id="20180918150200-1" author="HamidLAFREDI">
+        <insert tableName="PATTERN">
+            <column name="NAME" value="Pattern 4"/>
+            <column name="AUTHOR" value="Author 4"/>
+            <column name="IMAGE_URL" value="www.google.fr"/>
+            <column name="PRICE" value="12"/>
+            <column name="THEME" value="DESIGN"/>
+        </insert>
+
+        <insert tableName="PATTERN">
+            <column name="NAME" value="Pattern 5"/>
+            <column name="AUTHOR" value="Author 5"/>
+            <column name="IMAGE_URL" value="www.google.fr"/>
+            <column name="PRICE" value="18"/>
+            <column name="THEME" value="LOVE"/>
+        </insert>
+
+        <insert tableName="PATTERN">
+            <column name="NAME" value="Pattern 6"/>
+            <column name="AUTHOR" value="Author 6"/>
+            <column name="IMAGE_URL" value="www.google.fr"/>
+            <column name="PRICE" value="19"/>
+            <column name="THEME" value="NATURE"/>
+        </insert>
+
+    </changeSet>
+
+    <!-- Added insert in COMMAND_ITEM -->
+    <!-- id star in 4-->
+
+    <changeSet id="20180918153000-1" author="HamidLAFREDI">
+
+        <insert tableName="COMMAND_ITEM">
+            <column name="QUANTITY" value="2"/>
+            <column name="PRICE" value="22"/>
+            <column name="COLOR" value="WHITE"/>
+            <column name="JHI_SIZE" value="S"/>
+            <column name="PATTERN_ID" value="4"/>
+            <column name="COMMAND_ID" value="3"/>
+        </insert>
+
+        <insert tableName="COMMAND_ITEM">
+            <column name="QUANTITY" value="4"/>
+            <column name="PRICE" value="23"/>
+            <column name="COLOR" value="RED"/>
+            <column name="JHI_SIZE" value="M"/>
+            <column name="PATTERN_ID" value="5"/>
+            <column name="COMMAND_ID" value="4"/>
+        </insert>
+
+    </changeSet>
+
+
+
+
+</databaseChangeLog>
