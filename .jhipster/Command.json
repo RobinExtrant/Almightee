@@ -1,0 +1,41 @@
+{
+    "name": "Command",
+    "fields": [
+        {
+            "fieldName": "date",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "CommandStatus",
+            "fieldValues": "IN_CART,IN_PREPARATION,SHIPPED,DELIVERED,CANCELED"
+        },
+        {
+            "fieldName": "total",
+            "fieldType": "Long"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "cart",
+            "otherEntityName": "commandItem",
+            "otherEntityRelationshipName": "command"
+        },
+        {
+            "relationshipName": "customer",
+            "otherEntityName": "customer",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180913124639",
+    "entityTableName": "command",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="commandItem">
+            <h2><span>Command Item</span> {{commandItem.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Quantity</span></dt>
+                <dd>
+                    <span>{{commandItem.quantity}}</span>
+                </dd>
+                <dt><span>Price</span></dt>
+                <dd>
+                    <span>{{commandItem.price}}</span>
+                </dd>
+                <dt><span>Color</span></dt>
+                <dd>
+                    <span>{{commandItem.color}}</span>
+                </dd>
+                <dt><span>Size</span></dt>
+                <dd>
+                    <span>{{commandItem.size}}</span>
+                </dd>
+                <dt><span>Pattern</span></dt>
+                <dd>
+                    <div *ngIf="commandItem.pattern">
+                        <a [routerLink]="['/pattern', commandItem.pattern?.id, 'view']">{{commandItem.pattern?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Command</span></dt>
+                <dd>
+                    <div *ngIf="commandItem.command">
+                        <a [routerLink]="['/command', commandItem.command?.id, 'view']">{{commandItem.command?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/command-item', commandItem.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

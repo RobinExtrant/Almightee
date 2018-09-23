@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,6 +11,7 @@ import { Register } from './register.service';
     templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
+    @ViewChild('birth') birth: ElementRef;
     confirmPassword: string;
     doNotMatch: string;
     error: string;
@@ -34,6 +35,24 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#login'), 'focus', []);
+        const today = new Date();
+        const dd = today.getDate();
+        const mm = today.getMonth() + 1;
+        let ddS;
+        let mmS;
+        const yyyy = today.getFullYear();
+        if (dd < 10) {
+            ddS = '0' + dd;
+        } else {
+            ddS = dd;
+        }
+        if (mm < 10) {
+            mmS = '0' + mm;
+        } else {
+            mmS = mm;
+        }
+        const todayS = yyyy + '-' + mmS + '-' + ddS;
+        this.birth.nativeElement.setAttribute('max', todayS);
     }
 
     register() {

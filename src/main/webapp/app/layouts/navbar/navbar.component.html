@@ -3,18 +3,39 @@
         <a class="jh-navbar-toggler d-lg-none float-right" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
             <fa-icon [icon]="'bars'"></fa-icon>
         </a>
-        <a class="navbar-brand logo float-left" routerLink="/" (click)="collapseNavbar()">
-            <span class="logo-img"></span>
-            <span class="navbar-title">Almightee</span> <span class="navbar-version">{{version}}</span>
-        </a>
     </div>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                 <a class="nav-link" routerLink="/recherche" (click)="collapseNavbar()">
+                     <span>
+                        <form action="/recherche" id="rechercher" method="get">
+                            <input id="recherche" name="q" type="text" placeholder="Recherche (thème, artiste, oeuvre...)" />
+                        </form>
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
                     <span>
-                        <fa-icon [icon]="'home'"></fa-icon>
-                        <span>Home</span>
+                        <fa-icon [icon]="'accueil'"></fa-icon>
+                        <span>Accueil</span>
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="/catalog" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon [icon]="'catalogue'"></fa-icon>
+                        <span>Catalogue</span>
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="cart" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon [icon]="'panier'"></fa-icon>
+                        <span>Panier</span>
                     </span>
                 </a>
             </li>
@@ -29,6 +50,48 @@
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li>
+                        <a class="dropdown-item" routerLink="category" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span>Category</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="product" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span>Product</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="pattern" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span>Pattern</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="line-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span>Line Item</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="mycart" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span>Cart</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="command" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span>Command</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="customer" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span>Customer</span>
+                        </a>
+                    </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>
@@ -96,7 +159,7 @@
                   <span *ngIf="!getImageUrl()">
                     <fa-icon [icon]="'user'"></fa-icon>
                     <span>
-                      Account
+                      Profil
                     </span>
                   </span>
                   <span *ngIf="getImageUrl()">
@@ -107,31 +170,31 @@
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" routerLink="settings" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon [icon]="'wrench'" [fixedWidth]="true"></fa-icon>
-                            <span>Settings</span>
+                            <span>Paramètres</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" routerLink="password" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon [icon]="'clock'" [fixedWidth]="true"></fa-icon>
-                            <span>Password</span>
+                            <span>Mot de passe</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" (click)="logout()" id="logout">
                             <fa-icon [icon]="'sign-out-alt'" [fixedWidth]="true"></fa-icon>
-                            <span>Sign out</span>
+                            <span>Se déconnecter</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="false">
                         <a class="dropdown-item" (click)="login()" id="login">
                             <fa-icon [icon]="'sign-in-alt'" [fixedWidth]="true"></fa-icon>
-                            <span>Sign in</span>
+                            <span>Se connecter</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="false">
                         <a class="dropdown-item" routerLink="register" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon [icon]="'user-plus'" [fixedWidth]="true"></fa-icon>
-                            <span>Register</span>
+                            <span>Créer un compte</span>
                         </a>
                     </li>
                 </ul>

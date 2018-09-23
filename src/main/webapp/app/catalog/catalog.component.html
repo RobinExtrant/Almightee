@@ -1,0 +1,18 @@
+<div>
+  <ngb-alert *ngIf="cartService.hasPatternAddedToCart()" type="success" (close)="cartService.resetPatternAddedToCart()">
+      Votre article avec le motif <strong>{{cartService.getPatternAddedToCart().name}}</strong> a bien été ajouté à votre panier.
+  </ngb-alert>
+  <div class="catalogue">
+    <mat-grid-list cols="4" rowHeight="180px" gutterSize="15px" *ngIf="patterns && patterns.length > 0; else nopattern">
+      <mat-grid-tile *ngFor="let pattern of patterns">
+        <jhi-pattern-item [pattern]="pattern" [catalogComponent]="this"></jhi-pattern-item>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <div class="pagination" *ngIf="patterns && patterns.length > 0;">
+      <input *ngIf="currentPage > 1" type="button" (click)="previous()" value="<">
+      <span>{{currentPage}}/{{totalPages}}</span>
+      <input *ngIf="currentPage < totalPages" type="button" (click)="next()" value=">">
+    </div>
+    <ng-template #nopattern>Il n'y a aucun motif !</ng-template>
+  </div>
+</div>
