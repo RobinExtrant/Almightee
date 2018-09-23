@@ -35,18 +35,24 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#login'), 'focus', []);
-        let today = new Date();
-        let dd = today.getDate();
-        let mm = today.getMonth() + 1;
+        const today = new Date();
+        const dd = today.getDate();
+        const mm = today.getMonth() + 1;
+        let ddS;
+        let mmS;
         const yyyy = today.getFullYear();
         if (dd < 10) {
-            dd = '0' + dd;
+            ddS = '0' + dd;
+        } else {
+            ddS = dd;
         }
         if (mm < 10) {
-            mm = '0' + mm;
+            mmS = '0' + mm;
+        } else {
+            mmS = mm;
         }
-        today = yyyy + '-' + mm + '-' + dd;
-        this.birth.nativeElement.setAttribute('max', today);
+        const todayS = yyyy + '-' + mmS + '-' + ddS;
+        this.birth.nativeElement.setAttribute('max', todayS);
     }
 
     register() {
