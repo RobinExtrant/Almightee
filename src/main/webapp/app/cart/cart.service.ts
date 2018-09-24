@@ -91,10 +91,18 @@ export class CartService {
     order() {
         if (this.cart.carts.length !== 0) {
             if (this.principal.isAuthenticated()) {
-                this.principal.identity().then(user => (this.cart.user = user));
-                this.cart.date = moment();
-                this.cart.status = CommandStatus.IN_CART;
-                this.commandService.create(this.cart).subscribe(commandRes => this.router.navigate(['/cart', commandRes.body.id]));
+                this.principal
+                    .identity()
+                    .then(
+                        user => (
+                            (this.cart.user = user),
+                            (this.cart.date = moment()),
+                            (this.cart.status = CommandStatus.IN_CART),
+                            this.commandService
+                                .create(this.cart)
+                                .subscribe(commandRes => this.router.navigate(['/cart', commandRes.body.id]))
+                        )
+                    );
             }
         }
     }
