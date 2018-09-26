@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-command-heading">Create or edit a Command</h2>
+            <h2 id="jhi-command-heading">Créer ou éditer une commande</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!command.id">
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_status">Status</label>
+                    <label class="form-control-label" for="field_status">Etat</label>
                     <select class="form-control" name="status" [(ngModel)]="command.status" id="field_status" >
                         <option value="IN_CART">IN_CART</option>
                         <option value="IN_PREPARATION">IN_PREPARATION</option>
@@ -36,14 +36,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_customer">Customer</label>
+                    <label class="form-control-label" for="field_customer">Client</label>
                     <select class="form-control" id="field_customer" name="customer" [(ngModel)]="command.customer" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="customerOption.id === command.customer?.id ? command.customer : customerOption" *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_user">User</label>
+                    <label class="form-control-label" for="field_user">Utilisateur</label>
                     <select class="form-control" id="field_user" name="user" [(ngModel)]="command.user" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="userOption.id === command.user?.id ? command.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
@@ -52,10 +52,10 @@
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Annuler</span>
                 </button>
                 <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Sauvegarder</span>
                 </button>
             </div>
         </form>

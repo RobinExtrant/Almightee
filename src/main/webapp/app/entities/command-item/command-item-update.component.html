@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-command-item-heading">Create or edit a Command Item</h2>
+            <h2 id="jhi-command-item-heading">Créer ou éditer un élément de commande</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!commandItem.id">
@@ -10,28 +10,28 @@
                         [(ngModel)]="commandItem.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_quantity">Quantity</label>
+                    <label class="form-control-label" for="field_quantity">Quantité</label>
                     <input type="number" class="form-control" name="quantity" id="field_quantity"
                         [(ngModel)]="commandItem.quantity" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_price">Price</label>
+                    <label class="form-control-label" for="field_price">Prix</label>
                     <input type="number" class="form-control" name="price" id="field_price"
                         [(ngModel)]="commandItem.price" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_color">Color</label>
+                    <label class="form-control-label" for="field_color">Couleur</label>
                     <select class="form-control" name="color" [(ngModel)]="commandItem.color" id="field_color" >
-                        <option value="WHITE">WHITE</option>
-                        <option value="BLACK">BLACK</option>
-                        <option value="BLUE">BLUE</option>
-                        <option value="YELLOW">YELLOW</option>
-                        <option value="GREEN">GREEN</option>
-                        <option value="RED">RED</option>
+                        <option value="WHITE">BLANC</option>
+                        <option value="BLACK">NOIR</option>
+                        <option value="BLUE">BLEU</option>
+                        <option value="YELLOW">JAUNE</option>
+                        <option value="GREEN">VERT</option>
+                        <option value="RED">ROUGE</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_size">Size</label>
+                    <label class="form-control-label" for="field_size">Taille</label>
                     <select class="form-control" name="size" [(ngModel)]="commandItem.size" id="field_size" >
                         <option value="S">S</option>
                         <option value="M">M</option>
@@ -42,14 +42,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_pattern">Pattern</label>
+                    <label class="form-control-label" for="field_pattern">Motif</label>
                     <select class="form-control" id="field_pattern" name="pattern" [(ngModel)]="commandItem.pattern" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="patternOption.id === commandItem.pattern?.id ? commandItem.pattern : patternOption" *ngFor="let patternOption of patterns; trackBy: trackPatternById">{{patternOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_command">Command</label>
+                    <label class="form-control-label" for="field_command">Commande</label>
                     <select class="form-control" id="field_command" name="command" [(ngModel)]="commandItem.command" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="commandOption.id === commandItem.command?.id ? commandItem.command : commandOption" *ngFor="let commandOption of commands; trackBy: trackCommandById">{{commandOption.id}}</option>
@@ -58,10 +58,10 @@
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Annuler</span>
                 </button>
                 <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Sauvegarder</span>
                 </button>
             </div>
         </form>

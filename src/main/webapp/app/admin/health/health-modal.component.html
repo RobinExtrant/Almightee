@@ -7,13 +7,13 @@
 </div>
 <div class="modal-body pad">
     <div *ngIf="currentHealth.details">
-        <h5>Properties</h5>
+        <h5>Propriétés</h5>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="text-left">Name</th>
-                        <th class="text-left">Value</th>
+                        <th class="text-left">Nom</th>
+                        <th class="text-left">Valeur</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,10 +26,10 @@
         </div>
     </div>
     <div *ngIf="currentHealth.error">
-        <h4>Error</h4>
+        <h4>Erreur</h4>
             <pre>{{currentHealth.error}}</pre>
     </div>
 </div>
 <div class="modal-footer">
-    <button data-dismiss="modal" class="btn btn-secondary float-left" type="button" (click)="activeModal.dismiss('closed')">Done</button>
+    <button data-dismiss="modal" class="btn btn-secondary float-left" type="button" (click)="activeModal.dismiss('closed')">Fini</button>
 </div>

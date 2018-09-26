@@ -3,15 +3,15 @@
 
     <div class="row">
         <div class="col-md-5">
-            <h4>Filter by date</h4>
+            <h4>Filtrer par date</h4>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">from</span>
+                    <span class="input-group-text">De</span>
                 </div>
                 <input type="date" class="form-control" name="start" [(ngModel)]="fromDate" (ngModelChange)="transition()" required/>
 
                 <div class="input-group-append">
-                    <span class="input-group-text">To</span>
+                    <span class="input-group-text">À</span>
                 </div>
                 <input type="date" class="form-control" name="end" [(ngModel)]="toDate" (ngModelChange)="transition()" required/>
             </div>
@@ -23,9 +23,9 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                 <th jhiSortBy="auditEventDate"><span>Date</span><fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="principal"><span>User</span><fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="auditEventType"><span>State</span><fa-icon [icon]="'sort'"></fa-icon></th>
-                <th><span>Extra data</span></th>
+                <th jhiSortBy="principal"><span>Utilisateur</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="auditEventType"><span>Etat</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                <th><span>Données supplémentaires</span></th>
             </tr>
             </thead>
             <tbody>
