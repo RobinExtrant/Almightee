@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface PatternService {
     public Page<Pattern> retrieveAllPatterns(Pageable pageable);
     public Optional<Pattern> getPattern(Long id);
-    public void deletePattern(Long id);
+    public boolean deletePattern(Long id);
     public Page<Pattern> retrievePatternsByQuery(String query, Pageable pageable);
     public Pattern createPattern(Pattern pattern);
     public Pattern updatePattern(Pattern pattern);

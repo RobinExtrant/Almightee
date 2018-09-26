@@ -63,9 +63,15 @@ public class PatternServiceImpl implements PatternService {
     }
 
     @Override
-    public void deletePattern(Long id) {
-        patternRepository.deleteById(id);
-        patternSearchRepository.deleteById(id);
+    public boolean deletePattern(Long id) {
+        Optional<Pattern> pattern = patternRepository.findById(id);
+        if(pattern.isPresent()) {
+            patternRepository.deleteById(id);
+            patternSearchRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
