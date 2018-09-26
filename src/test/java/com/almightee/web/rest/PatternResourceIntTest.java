@@ -274,7 +274,7 @@ public class PatternResourceIntTest {
     @Transactional
     public void deletePattern() throws Exception {
         // Initialize the database
-        patternRepository.saveAndFlush(pattern);
+        Pattern pattern = patternRepository.saveAndFlush(this.pattern);
 
         int databaseSizeBeforeDelete = patternRepository.findAll().size();
 

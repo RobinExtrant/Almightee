@@ -11,7 +11,7 @@ export class CartItemComponent {
     @Input() public item: CommandItem;
     private alreadyDeleted: boolean;
 
-    constructor(private cartService: CartService) {
+    constructor(public cartService: CartService) {
         this.alreadyDeleted = false;
     }
 

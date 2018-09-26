@@ -8,8 +8,8 @@ import { CatalogComponent } from 'app/catalog/catalog.component';
     styleUrls: ['./../catalog.css']
 })
 export class PatternItemComponent implements OnInit {
-    @Input() private pattern: Pattern;
-    @Input() private catalogComponent: CatalogComponent;
+    @Input() public pattern: Pattern;
+    @Input() public catalogComponent: CatalogComponent;
 
     constructor() {}
 
