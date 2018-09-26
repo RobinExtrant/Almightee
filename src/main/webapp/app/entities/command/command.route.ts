@@ -31,7 +31,7 @@ export const commandRoute: Routes = [
         component: CommandComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Commands'
+            pageTitle: 'Commandes'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -43,7 +43,7 @@ export const commandRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Commands'
+            pageTitle: 'Commandes'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -55,7 +55,7 @@ export const commandRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Commands'
+            pageTitle: 'Commandes'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -67,7 +67,7 @@ export const commandRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Commands'
+            pageTitle: 'Commandes'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -82,7 +82,7 @@ export const commandPopupRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Commands'
+            pageTitle: 'Commandes'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

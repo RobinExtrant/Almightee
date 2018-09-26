@@ -1,11 +1,11 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="customer">
-            <h2><span>Customer</span> {{customer.id}}</h2>
+            <h2><span>Client</span> {{customer.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Username</span></dt>
+                <dt><span>Pseudo</span></dt>
                 <dd>
                     <span>{{customer.username}}</span>
                 </dd>
@@ -13,7 +13,7 @@
                 <dd>
                     <span>{{customer.mail}}</span>
                 </dd>
-                <dt><span>Password</span></dt>
+                <dt><span>Mot de passe</span></dt>
                 <dd>
                     <span>{{customer.password}}</span>
                 </dd>
@@ -22,13 +22,13 @@
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Retour</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/customer', customer.id, 'edit']"
                     class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Editer</span>
             </button>
         </div>
     </div>

@@ -13,7 +13,7 @@ export class ItemEditComponent implements OnInit {
     colors = { values: Color, keys: Object.keys(Color) };
     sizes = { values: Size, keys: Object.keys(Size) };
 
-    constructor(private modalService: NgbModal, private cartService: CartService) {}
+    constructor(private modalService: NgbModal, public cartService: CartService) {}
 
     ngOnInit() {
         this.commandItem = new CommandItem();

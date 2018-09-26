@@ -1,10 +1,10 @@
 <div>
     <h2 id="page-heading">
-        <span>Patterns</span>
+        <span>Motifs</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-pattern" [routerLink]="['/pattern/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down" >
-            Create new Pattern
+            Créer un nouveau motif
             </span>
         </button>
     </h2>
@@ -13,7 +13,7 @@
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Recherche">
                     <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
                         <fa-icon [icon]="'search'"></fa-icon>
                     </button>
@@ -30,11 +30,11 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="author"><span>Author</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="name"><span>Nom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="author"><span>Auteur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="imageURL"><span>Image URL</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="price"><span>Price</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="theme"><span>Theme</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="price"><span>Prix</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="theme"><span>Thème</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -52,13 +52,13 @@
                                 [routerLink]="['/pattern', pattern.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">View</span>
+                            <span class="d-none d-md-inline">Voir</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/pattern', pattern.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline">Edit</span>
+                            <span class="d-none d-md-inline">Editer</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'pattern/'+ pattern.id + '/delete'} }]"
@@ -66,7 +66,7 @@
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline">Delete</span>
+                            <span class="d-none d-md-inline">Supprimer</span>
                         </button>
                     </div>
                 </td>

@@ -1,11 +1,11 @@
 
 <div>
     <h2 id="page-heading">
-        <span>Customers</span>
+        <span>Clients</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-customer" [routerLink]="['/customer/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down" >
-            Create new Customer
+            Créer un nouveau client
             </span>
         </button>
     </h2>
@@ -31,9 +31,9 @@
             <thead>
             <tr>
             <th><span>ID</span></th>
-            <th><span>Username</span></th>
+            <th><span>Pseudo</span></th>
             <th><span>Mail</span></th>
-            <th><span>Password</span></th>
+            <th><span>Mot de passe</span></th>
             <th></th>
             </tr>
             </thead>
@@ -49,13 +49,13 @@
                                 [routerLink]="['/customer', customer.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">View</span>
+                            <span class="d-none d-md-inline">Voir</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/customer', customer.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline">Edit</span>
+                            <span class="d-none d-md-inline">Editer</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'customer/'+ customer.id + '/delete'} }]"
@@ -63,7 +63,7 @@
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline">Delete</span>
+                            <span class="d-none d-md-inline">Supprimer</span>
                         </button>
                     </div>
                 </td>

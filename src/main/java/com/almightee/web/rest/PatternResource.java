@@ -52,8 +52,12 @@ public class PatternResource {
 
     @Autowired
     private PatternService patternService;
+
     @Autowired
     private StorageService storageService;
+
+    @Autowired
+    private PatternRepository patternRepository;
 
     public PatternResource() {
     }
