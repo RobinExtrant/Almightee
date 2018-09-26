@@ -1,10 +1,10 @@
 <div>
     <h2 id="page-heading">
-        <span>Command Items</span>
+        <span>Elements de commande</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-command-item" [routerLink]="['/command-item/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down" >
-            Create new Command Item
+            Créer un nouvel élement de commande
             </span>
         </button>
     </h2>
@@ -30,12 +30,12 @@
             <thead>
             <tr>
             <th><span>ID</span></th>
-            <th><span>Quantity</span></th>
-            <th><span>Price</span></th>
-            <th><span>Color</span></th>
-            <th><span>Size</span></th>
-            <th><span>Pattern</span></th>
-            <th><span>Command</span></th>
+            <th><span>Quantité</span></th>
+            <th><span>Prix</span></th>
+            <th><span>Couleur</span></th>
+            <th><span>Taille</span></th>
+            <th><span>Motif</span></th>
+            <th><span>Commande</span></th>
             <th></th>
             </tr>
             </thead>
@@ -62,13 +62,13 @@
                                 [routerLink]="['/command-item', commandItem.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">View</span>
+                            <span class="d-none d-md-inline">Voir</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/command-item', commandItem.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline">Edit</span>
+                            <span class="d-none d-md-inline">Editer</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'command-item/'+ commandItem.id + '/delete'} }]"
@@ -76,7 +76,7 @@
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline">Delete</span>
+                            <span class="d-none d-md-inline">Supprimer</span>
                         </button>
                     </div>
                 </td>

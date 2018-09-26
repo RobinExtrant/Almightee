@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-customer-heading">Create or edit a Customer</h2>
+            <h2 id="jhi-customer-heading">Créer ou éditer un client</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!customer.id">
@@ -10,7 +10,7 @@
                         [(ngModel)]="customer.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_username">Username</label>
+                    <label class="form-control-label" for="field_username">Pseudo</label>
                     <input type="text" class="form-control" name="username" id="field_username"
                         [(ngModel)]="customer.username" />
                 </div>
@@ -20,7 +20,7 @@
                         [(ngModel)]="customer.mail" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_password">Password</label>
+                    <label class="form-control-label" for="field_password">Mot de passe</label>
                     <input type="text" class="form-control" name="password" id="field_password"
                         [(ngModel)]="customer.password" />
                 </div>
@@ -28,10 +28,10 @@
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Annuler</span>
                 </button>
                 <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Sauvegarder</span>
                 </button>
             </div>
         </form>
